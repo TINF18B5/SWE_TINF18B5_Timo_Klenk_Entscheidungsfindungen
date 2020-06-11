@@ -1,0 +1,218 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6947137632293025114",
+      "lastPropertyId": "3:1171985108114819444",
+      "name": "Gegenstand",
+      "properties": [
+        {
+          "id": "1:3525715801988063771",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4967791667341425897",
+          "name": "gegenstandstypId",
+          "indexId": "1:2166634330193571318",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Gegenstandstyp"
+        },
+        {
+          "id": "3:1171985108114819444",
+          "name": "lagerortId",
+          "indexId": "2:5297766215884994078",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Lagerort"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:2260819580822930466",
+      "lastPropertyId": "3:6550726647237432256",
+      "name": "Gegenstandstyp",
+      "properties": [
+        {
+          "id": "1:3887475705372760252",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4441899434554552802",
+          "name": "beschreibung",
+          "type": 9
+        },
+        {
+          "id": "3:6550726647237432256",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:6646503552419272324",
+          "name": "gegenstaende",
+          "targetId": "1:6947137632293025114"
+        }
+      ]
+    },
+    {
+      "id": "3:9127694019469674526",
+      "lastPropertyId": "1:3487212056211275198",
+      "name": "Lager",
+      "properties": [
+        {
+          "id": "1:3487212056211275198",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:2498254489017752369",
+          "name": "lagerorte",
+          "targetId": "4:7239051646054920214"
+        },
+        {
+          "id": "3:310984284287336849",
+          "name": "gegenstandstypen",
+          "targetId": "2:2260819580822930466"
+        }
+      ]
+    },
+    {
+      "id": "4:7239051646054920214",
+      "lastPropertyId": "3:3238544670311148107",
+      "name": "Lagerort",
+      "properties": [
+        {
+          "id": "1:7191092119734526064",
+          "name": "beschreibung",
+          "type": 9
+        },
+        {
+          "id": "2:1448789042635368301",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:3238544670311148107",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        }
+      ],
+      "relations": [
+        {
+          "id": "4:6680659471577303266",
+          "name": "gegenstaende",
+          "targetId": "1:6947137632293025114"
+        }
+      ]
+    },
+    {
+      "id": "5:4781633649392209143",
+      "lastPropertyId": "4:4899532771955619200",
+      "name": "LagerortErstelltEvent",
+      "properties": [
+        {
+          "id": "1:7290609043289234553",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2970260162431939144",
+          "name": "zeitStempel",
+          "type": 10
+        },
+        {
+          "id": "3:2754127804487864063",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:4899532771955619200",
+          "name": "beschreibung",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:7342555412615241557",
+      "lastPropertyId": "2:8751178870744360818",
+      "name": "Event",
+      "properties": [
+        {
+          "id": "1:5998177296879183007",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8751178870744360818",
+          "name": "zeitStempel",
+          "type": 10
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:7461063962496561617",
+      "lastPropertyId": "5:7669016342944608621",
+      "name": "LagerortBearbeitetEvent",
+      "properties": [
+        {
+          "id": "1:2807947180580492262",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6720462385370184875",
+          "name": "zeitStempel",
+          "type": 10
+        },
+        {
+          "id": "3:8093256489182876806",
+          "name": "neuerName",
+          "type": 9
+        },
+        {
+          "id": "4:1677849949425631275",
+          "name": "neueBeschreibung",
+          "type": 9
+        },
+        {
+          "id": "5:7669016342944608621",
+          "name": "lagerortId",
+          "indexId": "3:1487647891174589898",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Lagerort"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "7:7461063962496561617",
+  "lastIndexId": "3:1487647891174589898",
+  "lastRelationId": "4:6680659471577303266",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
