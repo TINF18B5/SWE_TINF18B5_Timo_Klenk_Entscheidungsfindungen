@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Inventur App Prototype</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Einstellungen</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label">Loginmaske</string>
+    <string name="second_fragment_label">Hauptmenü</string>
+    <string name="next">Einloggen</string>
+    <string name="previous">Ausloggen</string>
+    <string name="gegenstandstypliste">Liste aller Gegenstände</string>
+    <string name="button_sort">Sortieren</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_first_fragment">Login</string>
 </resources>

@@ -1,8 +1,5 @@
 package de.dhbw.ka.inventurappprototype.kommando_bearbeitung
 
-import akka.actor.typed.javadsl.AbstractBehavior
-import akka.actor.typed.javadsl.ActorContext
-import akka.actor.typed.javadsl.Receive
 import de.dhbw.ka.inventurappprototype.daten.kommandos.AbstractKommando
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstand.AbstractGegenstandKommando
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstandstyp.AbstractGegenstandstypKommando
@@ -11,8 +8,7 @@ import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.gegenstand.Gegenstan
 import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.gegenstandstyp.GegenstandstypKommandoProzessor
 import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.lagerort.LagerortKommandoProzessor
 
-class ZentralerKommandoProzessor(context: ActorContext<AbstractKommando>?) :
-    AbstractBehavior<AbstractKommando>(context) {
+class ZentralerKommandoProzessor {
     private val gegenstandsKommandoProzessor: GegenstandsKommandoProzessor =
         GegenstandsKommandoProzessor()
     private val gegenstandstypKommandoProzessor: GegenstandstypKommandoProzessor =
@@ -35,10 +31,4 @@ class ZentralerKommandoProzessor(context: ActorContext<AbstractKommando>?) :
 
         return this
     }
-
-    override fun createReceive(): Receive<AbstractKommando> = newReceiveBuilder()
-        .onMessage(AbstractKommando::class.java) { bearbeite(it) }
-        .build()
-
-
 }

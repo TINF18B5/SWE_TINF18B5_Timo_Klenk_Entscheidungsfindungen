@@ -1,20 +1,15 @@
 package de.dhbw.ka.inventurappprototype
 
 import akka.actor.typed.ActorRef
-import akka.actor.typed.ActorSystem
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import de.dhbw.ka.inventurappprototype.aktoren.createAktorenMain
 import de.dhbw.ka.inventurappprototype.daten.kommandos.AbstractKommando
-import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstand.GegenstandAuslagernKommando
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var aktorenMain: ActorRef<AbstractKommando>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +20,6 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-
-        aktorenMain = ActorSystem.create(createAktorenMain(), "aktorenMain")
-        aktorenMain.tell(GegenstandAuslagernKommando("nutzer", 0x815, "lagerort", 4711))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
