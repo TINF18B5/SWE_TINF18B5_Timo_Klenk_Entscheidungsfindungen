@@ -7,7 +7,27 @@
     <string name="next">Einloggen</string>
     <string name="previous">Ausloggen</string>
     <string name="gegenstandstypliste">Liste aller Gegenstände</string>
+
+    <!-- Buttons die in den Views benutzt werden-->
     <string name="button_sort">Sortieren</string>
+    <string name="button_zuruck">Zurück</string>
+    <string name="button_bearbeiten">Bearbeiten</string>
+    <string name="button_gegenstand_loschen">Gegenstand löschen</string>
+    <string name="button_login">Einloggen</string>
+    <string name="button_logout">Ausloggen</string>
+    <string name="button_einlagern">Einlagern</string>
+    <string name="button_auslagern">Auslagern</string>
+    <string name="button_inventur_starten">Inventur Starten</string>
+    <string name="button_inventur_abbrechen">Inventur Abbrechen</string>
+    <string name="button_gegenstandstypen">Gegenstandstypen</string>
+    <string name="button_lagerorte">Lagerorte</string>
+    <string name="button_inventur">Inventur</string>
+    <string name="button_nutzerverwaltung">Nutzerverwaltung (NYI)</string>
+
+
+    <!-- Labels die in den Views benutzt werden-->
+    <string name="label_name">Name</string>
+    <string name="label_beschreibung">Beschreibung</string>
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="hello_first_fragment">Login</string>

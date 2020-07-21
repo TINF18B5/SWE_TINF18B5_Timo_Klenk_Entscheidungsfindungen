@@ -30,11 +30,23 @@
     </fragment>
     <fragment
         android:id="@+id/gegenstandstypViewFragment"
-        android:name="de.dhbw.ka.inventurappprototype.gui.GegenstandstypViewFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.gegenstandstyp.liste.GegenstandstypViewFragment"
         android:label="fragment_gegenstandstyp_list"
         tools:layout="@layout/fragment_gegenstandstyp_list" >
         <action
             android:id="@+id/action_gegenstandstypViewFragment_to_SecondFragment2"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_gegenstandstypViewFragment_to_gegenstandstypInfoFragment"
+            app:destination="@id/gegenstandstypInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gegenstandstypInfoFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.gegenstandstyp.info.GegenstandstypInfoFragment"
+        android:label="fragment_gegenstandstyp_info"
+        tools:layout="@layout/fragment_gegenstandstyp_info" >
+        <action
+            android:id="@+id/action_gegenstandstypInfoFragment_to_gegenstandstypViewFragment"
+            app:destination="@id/gegenstandstypViewFragment" />
     </fragment>
 </navigation>

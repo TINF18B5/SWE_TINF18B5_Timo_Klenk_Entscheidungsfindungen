@@ -9,7 +9,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".gui.GegenstandstypViewFragment">
+    tools:context=".gui.gegenstandstyp.liste.GegenstandstypViewFragment">
 
     <Button
         android:id="@+id/button_gegenstandsliste_sort"
