@@ -1,13 +1,11 @@
 package de.dhbw.ka.inventurappprototype
 
-import akka.actor.typed.ActorRef
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import de.dhbw.ka.inventurappprototype.daten.kommandos.AbstractKommando
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_logout -> true
             else -> super.onOptionsItemSelected(item)
         }
     }

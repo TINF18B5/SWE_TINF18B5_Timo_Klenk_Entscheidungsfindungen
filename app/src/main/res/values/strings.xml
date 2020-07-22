@@ -29,9 +29,12 @@
     <!-- Labels die in den Views benutzt werden-->
     <string name="label_name">Name</string>
     <string name="label_beschreibung">Beschreibung</string>
+    <string name="label_menge">Menge</string>
+    <string name="label_grund">Grund</string>
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="hello_first_fragment">Login</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description_button_add_floating">A plus sign in a circle</string>
 </resources>

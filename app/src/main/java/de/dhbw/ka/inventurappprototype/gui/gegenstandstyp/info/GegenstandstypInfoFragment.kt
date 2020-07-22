@@ -49,7 +49,7 @@ class GegenstandstypInfoFragment : Fragment() {
 
         view.findViewById<TextView>(R.id.bearbeiten_name).text = gegenstandstyp.name
         view.findViewById<TextView>(R.id.bearbeiten_beschreibung).text = gegenstandstyp.beschreibung
-        val findFragmentByTag = childFragmentManager.findFragmentByTag("gegenstandsliste")
+        val findFragmentByTag = childFragmentManager.findFragmentByTag("container_gegenstandsinfo_gegenstandliste")
         val listenArt =
             GegenstandsListenArt.GegenstandstypVerwaltung(gegenstandstyp)
         if(findFragmentByTag is GegenstandFragmentListe){

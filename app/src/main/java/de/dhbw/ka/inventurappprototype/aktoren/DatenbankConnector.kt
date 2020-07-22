@@ -22,6 +22,15 @@ class DatenbankConnector {
         Gegenstand(gegenstandstyp, Lagerort("Lager 4", "Beschreibung 4"), 30)
     )
 
+    val lagerorte: List<Lagerort>
+        get() = listOf(
+            Lagerort("Name1", "Beschreibung 1"),
+            Lagerort("Name2", "Beschreibung 2"),
+            Lagerort("Name3", "Beschreibung 3"),
+            Lagerort("Name4", "Beschreibung 4"),
+            Lagerort("Name5", "Beschreibung 5"),
+            Lagerort("Name6", "Beschreibung 6")
+        )
     val gegenstandsTypen: List<Gegenstandstyp>
         get() = listOf(
             Gegenstandstyp("Name1", "Beschreibung 1"),

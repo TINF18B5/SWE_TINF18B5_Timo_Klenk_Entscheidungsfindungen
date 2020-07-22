@@ -60,7 +60,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:tag="gegenstandsliste"
+            android:tag="container_gegenstandsinfo_gegenstandliste"
             app:layout_constraintBottom_toTopOf="@+id/button_zuruck"
             app:layout_constraintEnd_toEndOf="@+id/bearbeiten_beschreibung"
             app:layout_constraintStart_toStartOf="@+id/label_beschreibung"

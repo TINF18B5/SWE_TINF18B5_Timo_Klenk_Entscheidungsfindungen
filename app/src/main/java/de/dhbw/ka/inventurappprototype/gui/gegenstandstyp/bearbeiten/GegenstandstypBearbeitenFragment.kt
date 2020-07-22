@@ -8,17 +8,16 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import de.dhbw.ka.inventurappprototype.R
-import de.dhbw.ka.inventurappprototype.daten.gegenstand.Gegenstand
 import de.dhbw.ka.inventurappprototype.daten.gegenstandstyp.Gegenstandstyp
 
 private const val ARG_GEGENSTAND = "gegenstand"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [GegenstandBearbeitenFragment.newInstance] factory method to
+ * Use the [GegenstandstypBearbeitenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GegenstandBearbeitenFragment : Fragment() {
+class GegenstandstypBearbeitenFragment : Fragment() {
     private var gegenstand: Gegenstandstyp? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +48,7 @@ class GegenstandBearbeitenFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(gegenstand: Gegenstandstyp) =
-            GegenstandBearbeitenFragment().apply {
+            GegenstandstypBearbeitenFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_GEGENSTAND, gegenstand)
                 }

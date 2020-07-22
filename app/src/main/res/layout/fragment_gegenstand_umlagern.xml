@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".gui.gegenstand.umlagern.GegenstandUmlagernFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label_gegenstand_umlagern_gegenstand_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:labelFor="@id/content_gegenstand_umlagern_gegenstandstyp_name"
+            android:text="@string/label_name"
+            app:layout_constraintEnd_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:labelFor="@id/content_gegenstand_umlagern_gegenstandstyp_beschreibung"
+            android:text="@string/label_beschreibung"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_name" />
+
+        <TextView
+            android:id="@+id/label_gegenstand_umlagern_menge"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:text="@string/label_menge"
+            app:layout_constraintBottom_toBottomOf="@+id/content_gegenstand_umlagern_menge"
+            app:layout_constraintEnd_toEndOf="@+id/label_gegenstand_umlagern_lagerort_beschreibung"
+            app:layout_constraintStart_toStartOf="@+id/label_gegenstand_umlagern_lagerort_beschreibung"
+            app:layout_constraintTop_toTopOf="@+id/content_gegenstand_umlagern_menge" />
+
+        <TextView
+            android:id="@+id/label_gegenstand_umlagern_lagerort_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/label_name"
+            app:layout_constraintEnd_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung" />
+
+        <TextView
+            android:id="@+id/label_gegenstand_umlagern_lagerort_beschreibung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/label_beschreibung"
+            app:layout_constraintEnd_toEndOf="@+id/label_gegenstand_umlagern_lagerort_name"
+            app:layout_constraintStart_toStartOf="@+id/label_gegenstand_umlagern_lagerort_name"
+            app:layout_constraintTop_toBottomOf="@+id/label_gegenstand_umlagern_lagerort_name" />
+
+        <EditText
+            android:id="@+id/content_gegenstand_umlagern_menge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:autofillHints="@string/label_menge"
+            android:ems="10"
+            android:hint="@string/label_menge"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_menge"
+            app:layout_constraintTop_toBottomOf="@+id/label_gegenstand_umlagern_lagerort_beschreibung" />
+
+        <Button
+            android:id="@+id/button_gegenstand_umlagern_zuruck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/button_zuruck"
+            app:layout_constraintEnd_toStartOf="@+id/button_gegenstand_umlagern_umlagern"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/button_gegenstand_umlagern_umlagern" />
+
+        <Button
+            android:id="@+id/button_gegenstand_umlagern_umlagern"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/button_einlagern"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_gegenstand_umlagern_zuruck"
+            app:layout_constraintTop_toBottomOf="@+id/content_gegenstand_umlagern_menge" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/label_name"
+            app:layout_constraintBottom_toBottomOf="@+id/label_gegenstand_umlagern_lagerort_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_lagerort_name"
+            app:layout_constraintTop_toTopOf="@+id/label_gegenstand_umlagern_lagerort_name" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/label_beschreibung"
+            app:layout_constraintBottom_toBottomOf="@+id/label_gegenstand_umlagern_lagerort_beschreibung"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_lagerort_beschreibung"
+            app:layout_constraintTop_toTopOf="@+id/label_gegenstand_umlagern_lagerort_beschreibung" />
+
+        <EditText
+            android:id="@+id/content_gegenstand_umlagern_gegenstandstyp_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:autofillHints="@string/label_name"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/label_name"
+            app:layout_constraintBottom_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_name"
+            app:layout_constraintTop_toTopOf="@+id/label_gegenstand_umlagern_gegenstand_name" />
+
+        <EditText
+            android:id="@+id/content_gegenstand_umlagern_gegenstandstyp_beschreibung"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:autofillHints="@string/label_beschreibung"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:text="@string/label_beschreibung"
+            app:layout_constraintBottom_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintTop_toTopOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="@string/label_beschreibung" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

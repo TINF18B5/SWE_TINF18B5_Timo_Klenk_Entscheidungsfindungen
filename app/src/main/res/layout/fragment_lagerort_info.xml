@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".gui.lagerort.info.LagerortInfoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label_lagerort_info_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:labelFor="@id/content_lagerort_info_name"
+            android:text="@string/label_name"
+            app:layout_constraintEnd_toEndOf="@+id/label_lagerort_info_beschreibung"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/label_lagerort_info_beschreibung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:labelFor="@id/content_lagerort_info_beschreibung"
+            android:text="@string/label_beschreibung"
+            app:layout_constraintStart_toStartOf="@id/label_lagerort_info_name"
+            app:layout_constraintTop_toBottomOf="@+id/label_lagerort_info_name"
+            tools:layout_editor_absoluteX="32dp" />
+
+        <TextView
+            android:id="@+id/content_lagerort_info_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/label_name"
+            app:layout_constraintBottom_toBottomOf="@+id/label_lagerort_info_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_lagerort_info_name"
+            app:layout_constraintTop_toTopOf="@+id/label_lagerort_info_name" />
+
+        <TextView
+            android:id="@+id/content_lagerort_info_beschreibung"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="0dp"
+            android:text="@string/label_beschreibung"
+            app:layout_constraintBottom_toBottomOf="@+id/label_lagerort_info_beschreibung"
+            app:layout_constraintEnd_toEndOf="@id/content_lagerort_info_name"
+            app:layout_constraintStart_toEndOf="@+id/label_lagerort_info_beschreibung"
+            app:layout_constraintTop_toBottomOf="@+id/label_lagerort_info_name"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container_lagerort_info_gegenstandliste"
+            android:name="de.dhbw.ka.inventurappprototype.gui.gegenstand.liste.GegenstandFragmentListe"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:tag="container_gegenstandsinfo_gegenstandliste"
+            app:layout_constraintBottom_toTopOf="@+id/button_lagerort_info_zuruck"
+            app:layout_constraintEnd_toEndOf="@+id/content_lagerort_info_beschreibung"
+            app:layout_constraintStart_toStartOf="@+id/label_lagerort_info_beschreibung"
+            app:layout_constraintTop_toBottomOf="@+id/label_lagerort_info_beschreibung">
+        </androidx.fragment.app.FragmentContainerView>
+
+
+        <Button
+            android:id="@+id/button_lagerort_info_zuruck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="64dp"
+            android:text="@string/button_bearbeiten"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_lagerort_info_bearbeiten"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Button
+            android:id="@+id/button_lagerort_info_bearbeiten"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="64dp"
+            android:text="@string/button_bearbeiten"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/container_lagerort_info_gegenstandliste"
+            app:layout_constraintStart_toEndOf="@id/button_lagerort_info_zuruck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/description_button_add_floating"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintEnd_toEndOf="@id/container_lagerort_info_gegenstandliste"
+            app:layout_constraintBottom_toBottomOf="@id/container_lagerort_info_gegenstandliste"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
