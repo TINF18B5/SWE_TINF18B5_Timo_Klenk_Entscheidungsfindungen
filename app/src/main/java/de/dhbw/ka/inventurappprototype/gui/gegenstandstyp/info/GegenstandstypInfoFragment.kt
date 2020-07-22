@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.findFragment
+import androidx.navigation.fragment.findNavController
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.daten.gegenstandstyp.Gegenstandstyp
 import de.dhbw.ka.inventurappprototype.gui.gegenstand.liste.GegenstandFragmentListe
@@ -48,11 +47,16 @@ class GegenstandstypInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.content_name).text = gegenstandstyp.name
-        view.findViewById<TextView>(R.id.content_beschreibung).text = gegenstandstyp.beschreibung
+        view.findViewById<TextView>(R.id.bearbeiten_name).text = gegenstandstyp.name
+        view.findViewById<TextView>(R.id.bearbeiten_beschreibung).text = gegenstandstyp.beschreibung
         val findFragmentByTag = childFragmentManager.findFragmentByTag("gegenstandsliste")
+        val listenArt =
+            GegenstandsListenArt.GegenstandstypVerwaltung(gegenstandstyp)
         if(findFragmentByTag is GegenstandFragmentListe){
-            findFragmentByTag.listenArt = GegenstandsListenArt.GegenstandstypVerwaltung(gegenstandstyp)
+            findFragmentByTag.listenArt = listenArt
+        }
+        view.findViewById<Button>(R.id.button_zuruck).setOnClickListener {
+            findNavController().navigate(R.id.action_gegenstandstypInfoFragment_to_gegenstandstypViewFragment)
         }
     }
 
