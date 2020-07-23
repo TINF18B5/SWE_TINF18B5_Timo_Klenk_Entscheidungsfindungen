@@ -7,6 +7,7 @@ class GegenstandGeloeschtEvent(
         timestamp: Date,
         nutzername: String,
         val lagerortName: String,
-        val GegenstandstypID: Int
+        val gegenstandstypID: Int,
+        val grund: String
 ) : AbstractEvent(timestamp, nutzername) {
 }

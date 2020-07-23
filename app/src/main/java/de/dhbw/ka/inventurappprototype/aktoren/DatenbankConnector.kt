@@ -27,12 +27,20 @@ class DatenbankConnector {
         Gegenstand(gegenstandstyp, Lagerort("Lager 4", "Beschreibung 4"), 30)
     )
 
-    fun gegenstand(gegenstandstypID: Int): Gegenstandstyp? =
+    fun gegenstandstyp(gegenstandstypID: Int): Gegenstandstyp? =
         Gegenstandstyp(
             name = "Name$gegenstandstypID",
             beschreibung = "Beschreibung$gegenstandstypID",
             ID = gegenstandstypID
         )
+
+    fun lagerort(name: String): Lagerort =
+        Lagerort(name = name, beschreibung = "Beschreibung für $name")
+
+    fun gegenstand(typID: Int, lagerortName: String): Gegenstand? =
+        gegenstaende(lagerort(lagerortName)).firstOrNull {
+            it.typ.ID == typID
+        }
 
     val lagerorte: List<Lagerort>
         get() = listOf(

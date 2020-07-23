@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
@@ -81,6 +83,7 @@ class GegenstandInfoFragment : Fragment() {
         }
 
         button_gegenstand_info_zuruck.setOnClickListener {
+            /*
             val bundle = Bundle()
             val id: Int = when (val tempListe = listenArt) {
                 is GegenstandsListenArt.LagerortVerwaltung -> {
@@ -93,6 +96,8 @@ class GegenstandInfoFragment : Fragment() {
                 }
             }
             findNavController().navigate(id, bundle)
+             */
+            findNavController().popBackStack()
         }
 
         button_gegenstand_info_loeschen.setOnClickListener {
@@ -104,7 +109,7 @@ class GegenstandInfoFragment : Fragment() {
             )
 
             when (val ergebnis = AktorenKontext.zentralerKommandoProzessor.bearbeite(kommando)) {
-                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(view, ergebnis.fehler, 10)
+                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT)
                     .show()
             }
         }

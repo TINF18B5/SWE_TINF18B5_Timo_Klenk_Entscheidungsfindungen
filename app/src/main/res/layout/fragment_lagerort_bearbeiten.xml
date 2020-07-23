@@ -55,7 +55,7 @@
             android:text="@string/button_zuruck" />
 
         <EditText
-            android:id="@+id/content_lagerort_bearbeiten_beschreibung"
+            android:id="@+id/content_lagerort_bearbeiten_name"
             app:layout_constraintBottom_toBottomOf="@id/label_lagerort_bearbeiten_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/label_lagerort_bearbeiten_name"
@@ -71,10 +71,10 @@
             android:text="@string/label_name" />
 
         <EditText
-            android:id="@+id/content_lagerort_bearbeiten_name"
-            app:layout_constraintEnd_toEndOf="@+id/content_lagerort_bearbeiten_beschreibung"
+            android:id="@+id/content_lagerort_bearbeiten_beschreibung"
+            app:layout_constraintEnd_toEndOf="@+id/content_lagerort_bearbeiten_name"
             app:layout_constraintStart_toEndOf="@+id/label_lagerort_bearbeiten_beschreibung"
-            app:layout_constraintTop_toBottomOf="@+id/content_lagerort_bearbeiten_beschreibung"
+            app:layout_constraintTop_toBottomOf="@+id/content_lagerort_bearbeiten_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

@@ -126,6 +126,9 @@
         <action
             android:id="@+id/action_lagerortInfoFragment_to_lagerortBearbeitenFragment"
             app:destination="@id/lagerortBearbeitenFragment" />
+        <action
+            android:id="@+id/action_lagerortInfoFragment_to_gegenstandUmlagernFragment"
+            app:destination="@id/gegenstandUmlagernFragment" />
     </fragment>
     <fragment
         android:id="@+id/lagerortBearbeitenFragment"

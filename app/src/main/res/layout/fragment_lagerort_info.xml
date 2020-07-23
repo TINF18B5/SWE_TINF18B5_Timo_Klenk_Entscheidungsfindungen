@@ -65,7 +65,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:tag="container_gegenstandsinfo_gegenstandliste"
+            android:tag="container_lagerortinfo_gegenstandliste"
             app:layout_constraintBottom_toTopOf="@+id/button_lagerort_info_zuruck"
             app:layout_constraintEnd_toEndOf="@+id/content_lagerort_info_beschreibung"
             app:layout_constraintStart_toStartOf="@+id/label_lagerort_info_beschreibung"
@@ -80,7 +80,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="64dp"
-            android:text="@string/button_bearbeiten"
+            android:text="@string/button_zuruck"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_lagerort_info_bearbeiten"
             app:layout_constraintStart_toStartOf="parent" />
@@ -99,7 +99,7 @@
             app:layout_constraintStart_toEndOf="@id/button_lagerort_info_zuruck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/button_lagerort_info_erstellen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"

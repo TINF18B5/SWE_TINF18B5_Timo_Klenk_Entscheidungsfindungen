@@ -34,7 +34,10 @@ class MainMenuFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.button_main_menu_lagerortliste).setOnClickListener {
-            findNavController().navigate(R.id.action_MainMenuFragment_to_lagerortListeFragment)
+            val findNavController = findNavController()
+            if(findNavController.currentDestination?.id != R.id.lagerortListeFragment) {
+                findNavController.navigate(R.id.action_MainMenuFragment_to_lagerortListeFragment)
+            }
         }
     }
 }

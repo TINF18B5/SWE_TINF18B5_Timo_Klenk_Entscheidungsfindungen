@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
@@ -75,14 +77,14 @@ class GegenstandstypBearbeitenFragment : Fragment() {
         erstelltListener = {
             findNavController().navigate(
                 R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment,
-                bundleOf(ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstand(it.gegenstandstypID))
+                bundleOf(ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstandstyp(it.gegenstandstypID))
             )
         }
 
         bearbeitetListener = {
             findNavController().navigate(
                 R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment,
-                bundleOf(ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstand(it.gegenstandstypID))
+                bundleOf(ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstandstyp(it.gegenstandstypID))
             )
         }
 
@@ -110,7 +112,7 @@ class GegenstandstypBearbeitenFragment : Fragment() {
                 when (val ergebnis =
                     AktorenKontext.zentralerKommandoProzessor.bearbeite(kommando)) {
                     is KommandoErgebnis.NichtAkzeptiert ->
-                        Snackbar.make(view, ergebnis.fehler, 10).show()
+                        Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT).show()
                 }
             }
     }

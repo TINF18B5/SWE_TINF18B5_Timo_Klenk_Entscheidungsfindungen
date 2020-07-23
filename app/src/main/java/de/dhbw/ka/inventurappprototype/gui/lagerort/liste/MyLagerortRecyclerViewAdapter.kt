@@ -23,19 +23,21 @@ class MyLagerortRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.name
-        holder.contentView.text = item.beschreibung
+        val lagerort = values[position]
+        holder.lagerortName.text = lagerort.name
+        holder.lagerortBeschreibung.text = lagerort.beschreibung
+        holder.lagerort = lagerort
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.item_number)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val lagerortName: TextView = view.findViewById(R.id.content_lagerort_liste_single_name)
+        val lagerortBeschreibung: TextView = view.findViewById(R.id.content_lagerort_liste_single_name)
+        lateinit var lagerort: Lagerort
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + lagerortBeschreibung.text + "'"
         }
     }
 }

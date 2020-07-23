@@ -1,22 +1,17 @@
 package de.dhbw.ka.inventurappprototype.daten.inventur
 
+import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
 import de.dhbw.ka.inventurappprototype.daten.lagerort.Lagerort
 
-class Inventur(val lagerorte: List<Lagerort>) : Iterator<InventurSchritt> {
+class Inventur(lagerorte: List<Lagerort>) : Iterator<InventurSchritt> {
 
+    private var counter: Int = 0
+    private val schritte: List<InventurSchritt> =
+        lagerorte.flatMap { AktorenKontext.datenbankConnector.gegenstaende(it) }
+            .map { InventurSchritt(it, zaehltZumZweitenMal = false) }
 
+    override fun hasNext(): Boolean = counter < schritte.size
 
-    init {
-        TODO("InventurSchritte berechnen")
-    }
-
-    override fun hasNext(): Boolean {
-
-        TODO("Not yet implemented")
-    }
-
-    override fun next(): InventurSchritt {
-        TODO("Not yet implemented")
-    }
+    override fun next(): InventurSchritt = schritte[counter++]
 
 }

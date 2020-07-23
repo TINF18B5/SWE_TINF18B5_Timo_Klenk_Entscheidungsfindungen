@@ -39,4 +39,5 @@
     <string name="description_button_add_floating">A plus sign in a circle</string>
     <string name="button_bestatigen">Bestätigen</string>
     <string name="button_gegenstandstyp_anlegen">Gegenstandstyp anlegen</string>
+    <string name="label_nicht_implementiert">Noch nicht implementiert!</string>
 </resources>

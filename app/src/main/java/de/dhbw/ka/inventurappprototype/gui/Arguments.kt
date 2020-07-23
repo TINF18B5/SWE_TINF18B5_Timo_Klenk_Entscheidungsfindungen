@@ -25,3 +25,5 @@ const val ARG_LISTEN_ART = "listen-art"
  * Der Lagerort, den diese View besitzt
  */
 const val ARG_LAGERORT = "lagerort"
+
+const val ARG_INVENTUR_SCHRITT = "inventurschritt"

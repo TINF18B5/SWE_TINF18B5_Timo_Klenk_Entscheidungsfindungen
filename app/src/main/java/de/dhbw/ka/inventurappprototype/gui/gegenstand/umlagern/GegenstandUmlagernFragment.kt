@@ -5,14 +5,19 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
+import de.dhbw.ka.inventurappprototype.aktoren.EventListener
+import de.dhbw.ka.inventurappprototype.daten.events.gegenstandstyp.GegenstandstypErstelltEvent
 import de.dhbw.ka.inventurappprototype.daten.gegenstand.Gegenstand
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstand.GegenstandAuslagernKommando
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstand.GegenstandEinlagernKommando
+import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstandstyp.GegenstandstypErstellenKommando
 import de.dhbw.ka.inventurappprototype.gui.ARG_GEGENSTAND
 import de.dhbw.ka.inventurappprototype.gui.ARG_RICHTUNG
 import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.KommandoErgebnis
@@ -27,6 +32,7 @@ import kotlinx.android.synthetic.main.fragment_gegenstand_umlagern.*
 class GegenstandUmlagernFragment : Fragment() {
     private lateinit var gegenstand: Gegenstand
     private var richtung: UmlagerRichtung = UmlagerRichtung.EINLAGERN
+    private lateinit var erstelltListener:EventListener<GegenstandstypErstelltEvent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,7 @@ class GegenstandUmlagernFragment : Fragment() {
         button_gegenstand_umlagern_umlagern.text = when (richtung) {
             UmlagerRichtung.AUSLAGERN -> getString(R.string.button_auslagern)
             UmlagerRichtung.EINLAGERN -> getString(R.string.button_einlagern)
+            UmlagerRichtung.ERSTMALIGES_EINLAGERN -> getString(R.string.button_einlagern)
         }
 
         content_gegenstand_umlagern_gegenstandstyp_name.text =
@@ -74,17 +81,43 @@ class GegenstandUmlagernFragment : Fragment() {
                     gegenstand.ort.name,
                     gegenstand.typ.ID
                 )
+                UmlagerRichtung.ERSTMALIGES_EINLAGERN -> GegenstandstypErstellenKommando(
+                    AktorenKontext.derzeitigerNutzer.name,
+                    content_gegenstand_umlagern_gegenstandstyp_name.text.toString(),
+                    content_gegenstand_umlagern_gegenstandstyp_beschreibung.text.toString()
+                )
             }
 
             when (val ergebnis = AktorenKontext.zentralerKommandoProzessor.bearbeite(kommando)) {
-                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(view, ergebnis.fehler, 10)
+                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT)
                     .show()
             }
         }
 
         button_gegenstand_umlagern_zuruck.setOnClickListener {
-            findNavController().navigate(R.id.action_gegenstandUmlagernFragment_to_gegenstandInfoFragment)
+            /*
+            findNavController().navigate(
+                R.id.action_gegenstandUmlagernFragment_to_gegenstandInfoFragment,
+                bundleOf(ARG_GEGENSTAND to gegenstand)
+            )
+             */
+            findNavController().popBackStack()
         }
+        erstelltListener = {
+            richtung = UmlagerRichtung.EINLAGERN
+            gegenstand = AktorenKontext.datenbankConnector.gegenstand(
+                typID = it.ID,
+                lagerortName = gegenstand.ort.name
+            )!!
+        }
+        AktorenKontext.eventStream.register(erstelltListener)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+            AktorenKontext.eventStream.unregister(erstelltListener)
+
     }
 
     companion object {
