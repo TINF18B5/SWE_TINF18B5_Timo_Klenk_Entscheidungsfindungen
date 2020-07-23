@@ -30,17 +30,22 @@ class GegenstandRecyclerViewAdapter(
             is GegenstandsListenArt.GegenstandstypVerwaltung -> gegenstand.ort.name
         }
 
-        holder.beschreibung.text =when (art) {
+        holder.beschreibung.text = when (art) {
             is GegenstandsListenArt.LagerortVerwaltung -> gegenstand.typ.beschreibung
             is GegenstandsListenArt.GegenstandstypVerwaltung -> gegenstand.ort.beschreibung
         }
+        holder.menge.text = gegenstand.menge.toString(10)
+        holder.gegenstand = gegenstand
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.item_number)
-        val beschreibung: TextView = view.findViewById(R.id.content)
+        lateinit var gegenstand: Gegenstand
+        val name: TextView = view.findViewById(R.id.content_gegenstand_liste_single_name)
+        val beschreibung: TextView =
+            view.findViewById(R.id.content_gegenstand_liste_single_beschreibung)
+        val menge: TextView = view.findViewById(R.id.content_gegenstand_liste_single_menge)
 
         override fun toString(): String {
             return super.toString() + " '" + beschreibung.text + "'"

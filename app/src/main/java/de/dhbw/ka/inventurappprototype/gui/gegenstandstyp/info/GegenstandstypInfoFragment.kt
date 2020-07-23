@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.daten.gegenstandstyp.Gegenstandstyp
+import de.dhbw.ka.inventurappprototype.gui.ARG_GEGENSTANDSTYP
 import de.dhbw.ka.inventurappprototype.gui.gegenstand.liste.GegenstandFragmentListe
 import de.dhbw.ka.inventurappprototype.gui.gegenstand.liste.GegenstandsListenArt
-
-/**
- * Der Gegenstandstyp, der hier dargestellt wird
- */
-const val ARG_GEGENSTANDSTYP = "gegenstandstyp"
 
 /**
  * A simple [Fragment] subclass.
@@ -47,16 +44,26 @@ class GegenstandstypInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.bearbeiten_name).text = gegenstandstyp.name
-        view.findViewById<TextView>(R.id.bearbeiten_beschreibung).text = gegenstandstyp.beschreibung
-        val findFragmentByTag = childFragmentManager.findFragmentByTag("container_gegenstandsinfo_gegenstandliste")
+        view.findViewById<TextView>(R.id.content_gegenstandstyp_info_name).text =
+            gegenstandstyp.name
+        view.findViewById<TextView>(R.id.content_gegenstandstyp_info_beschreibung).text =
+            gegenstandstyp.beschreibung
+        val findFragmentByTag =
+            childFragmentManager.findFragmentByTag("container_gegenstandsinfo_gegenstandliste")
         val listenArt =
             GegenstandsListenArt.GegenstandstypVerwaltung(gegenstandstyp)
-        if(findFragmentByTag is GegenstandFragmentListe){
+        if (findFragmentByTag is GegenstandFragmentListe) {
             findFragmentByTag.listenArt = listenArt
         }
-        view.findViewById<Button>(R.id.button_zuruck).setOnClickListener {
+        view.findViewById<Button>(R.id.button_gegenstandstyp_info_zuruck).setOnClickListener {
             findNavController().navigate(R.id.action_gegenstandstypInfoFragment_to_gegenstandstypViewFragment)
+        }
+
+        view.findViewById<Button>(R.id.button_gegenstandstyp_info_bearbeiten).setOnClickListener {
+            findNavController().navigate(
+                R.id.action_gegenstandstypInfoFragment_to_gegenstandstypBearbeitenFragment,
+                bundleOf(ARG_GEGENSTANDSTYP to gegenstandstyp)
+            )
         }
     }
 

@@ -13,7 +13,12 @@ class DatenbankConnector {
         }
     }
 
-    fun gegenstaende(lagerort: Lagerort): List<Gegenstand> = listOf()
+    fun gegenstaende(lagerort: Lagerort): List<Gegenstand> = listOf(
+        Gegenstand(Gegenstandstyp("Gegenstandstyp 1", "Beschreibung 1", 1), lagerort, 67),
+        Gegenstand(Gegenstandstyp("Gegenstandstyp 2", "Beschreibung 2", 2), lagerort, 2),
+        Gegenstand(Gegenstandstyp("Gegenstandstyp 3", "Beschreibung 3", 3), lagerort, 88),
+        Gegenstand(Gegenstandstyp("Gegenstandstyp 4", "Beschreibung 4", 4), lagerort, 95)
+    )
 
     fun gegenstaende(gegenstandstyp: Gegenstandstyp): List<Gegenstand> = listOf(
         Gegenstand(gegenstandstyp, Lagerort("Lager 1", "Beschreibung 1"), 100),
@@ -21,6 +26,13 @@ class DatenbankConnector {
         Gegenstand(gegenstandstyp, Lagerort("Lager 3", "Beschreibung 3"), 20),
         Gegenstand(gegenstandstyp, Lagerort("Lager 4", "Beschreibung 4"), 30)
     )
+
+    fun gegenstand(gegenstandstypID: Int): Gegenstandstyp? =
+        Gegenstandstyp(
+            name = "Name$gegenstandstypID",
+            beschreibung = "Beschreibung$gegenstandstypID",
+            ID = gegenstandstypID
+        )
 
     val lagerorte: List<Lagerort>
         get() = listOf(
@@ -33,11 +45,11 @@ class DatenbankConnector {
         )
     val gegenstandsTypen: List<Gegenstandstyp>
         get() = listOf(
-            Gegenstandstyp("Name1", "Beschreibung 1"),
-            Gegenstandstyp("Name2", "Beschreibung 2"),
-            Gegenstandstyp("Name3", "Beschreibung 3"),
-            Gegenstandstyp("Name4", "Beschreibung 4"),
-            Gegenstandstyp("Name5", "Beschreibung 5"),
-            Gegenstandstyp("Name6", "Beschreibung 6")
+            Gegenstandstyp("Name1", "Beschreibung 1", 1),
+            Gegenstandstyp("Name2", "Beschreibung 2", 2),
+            Gegenstandstyp("Name3", "Beschreibung 3", 3),
+            Gegenstandstyp("Name4", "Beschreibung 4", 4),
+            Gegenstandstyp("Name5", "Beschreibung 5", 5),
+            Gegenstandstyp("Name6", "Beschreibung 6", 6)
         )
 }

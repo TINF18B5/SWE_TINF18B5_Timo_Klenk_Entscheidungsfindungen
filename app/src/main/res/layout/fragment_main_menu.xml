@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="64dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".gui.MainMenuFragment">
+
+    <Button
+        android:id="@+id/button_main_menu_gegenstandstypliste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/button_gegenstandstypen"
+        />
+
+    <Button
+        android:id="@+id/button_main_menu_lagerortliste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/button_lagerorte" />
+
+    <Button
+        android:id="@+id/button_main_menu_inventur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_inventur"
+        android:layout_marginVertical="8dp"
+        />
+</LinearLayout>

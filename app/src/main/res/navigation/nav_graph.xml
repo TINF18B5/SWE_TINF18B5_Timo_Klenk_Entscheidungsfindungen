@@ -3,30 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/LoginFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="de.dhbw.ka.inventurappprototype.LoginFragment"
+        android:id="@+id/LoginFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.LoginFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/MainMenuFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="de.dhbw.ka.inventurappprototype.SecondFragment"
+        android:id="@+id/MainMenuFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.MainMenuFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_main_menu">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_gegenstandstypViewFragment"
+            android:id="@+id/action_MainMenuFragment_to_gegenstandstypViewFragment"
             app:destination="@id/gegenstandstypViewFragment" />
+        <action
+            android:id="@+id/action_MainMenuFragment_to_lagerortListeFragment"
+            app:destination="@id/lagerortListeFragment" />
+        <action
+            android:id="@+id/action_MainMenuFragment_to_inventurLagerortWahlFragment"
+            app:destination="@id/inventurLagerortWahlFragment" />
     </fragment>
     <fragment
         android:id="@+id/gegenstandstypViewFragment"
@@ -35,10 +38,13 @@
         tools:layout="@layout/fragment_gegenstandstyp_list" >
         <action
             android:id="@+id/action_gegenstandstypViewFragment_to_SecondFragment2"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/MainMenuFragment" />
         <action
             android:id="@+id/action_gegenstandstypViewFragment_to_gegenstandstypInfoFragment"
             app:destination="@id/gegenstandstypInfoFragment" />
+        <action
+            android:id="@+id/action_gegenstandstypViewFragment_to_gegenstandstypBearbeitenFragment"
+            app:destination="@id/gegenstandstypBearbeitenFragment" />
     </fragment>
     <fragment
         android:id="@+id/gegenstandstypInfoFragment"
@@ -48,5 +54,110 @@
         <action
             android:id="@+id/action_gegenstandstypInfoFragment_to_gegenstandstypViewFragment"
             app:destination="@id/gegenstandstypViewFragment" />
+        <action
+            android:id="@+id/action_gegenstandstypInfoFragment_to_gegenstandInfoFragment"
+            app:destination="@id/gegenstandInfoFragment" />
+        <action
+            android:id="@+id/action_gegenstandstypInfoFragment_to_gegenstandstypBearbeitenFragment"
+            app:destination="@id/gegenstandstypBearbeitenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gegenstandInfoFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.gegenstand.info.GegenstandInfoFragment"
+        android:label="fragment_gegenstand_info"
+        tools:layout="@layout/fragment_gegenstand_info" >
+        <action
+            android:id="@+id/action_gegenstandInfoFragment_to_gegenstandstypInfoFragment"
+            app:destination="@id/gegenstandstypInfoFragment" />
+        <action
+            android:id="@+id/action_gegenstandInfoFragment_to_gegenstandUmlagernFragment"
+            app:destination="@id/gegenstandUmlagernFragment" />
+        <action
+            android:id="@+id/action_gegenstandInfoFragment_to_lagerortInfoFragment"
+            app:destination="@id/lagerortInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lagerortListeFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.lagerort.liste.LagerortListeFragment"
+        android:label="fragment_lagerort_liste_gesamt"
+        tools:layout="@layout/fragment_lagerort_liste_gesamt" >
+        <action
+            android:id="@+id/action_lagerortListeFragment_to_lagerortInfoFragment"
+            app:destination="@id/lagerortInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gegenstandstypBearbeitenFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.gegenstandstyp.bearbeiten.GegenstandstypBearbeitenFragment"
+        android:label="fragment_gegenstandstyp_bearbeiten"
+        tools:layout="@layout/fragment_gegenstandstyp_bearbeiten" >
+        <action
+            android:id="@+id/action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment"
+            app:destination="@id/gegenstandstypInfoFragment" />
+        <action
+            android:id="@+id/action_gegenstandstypBearbeitenFragment_to_gegenstandstypViewFragment"
+            app:destination="@id/gegenstandstypViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gegenstandUmlagernFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.gegenstand.umlagern.GegenstandUmlagernFragment"
+        android:label="fragment_gegenstand_umlagern"
+        tools:layout="@layout/fragment_gegenstand_umlagern" >
+        <action
+            android:id="@+id/action_gegenstandUmlagernFragment_to_gegenstandInfoFragment"
+            app:destination="@id/gegenstandInfoFragment" />
+        <action
+            android:id="@+id/action_gegenstandUmlagernFragment_to_gegenstandstypInfoFragment"
+            app:destination="@id/gegenstandstypInfoFragment" />
+        <action
+            android:id="@+id/action_gegenstandUmlagernFragment_to_lagerortInfoFragment"
+            app:destination="@id/lagerortInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lagerortInfoFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.lagerort.info.LagerortInfoFragment"
+        android:label="fragment_lagerort_info"
+        tools:layout="@layout/fragment_lagerort_info" >
+        <action
+            android:id="@+id/action_lagerortInfoFragment_to_gegenstandInfoFragment"
+            app:destination="@id/gegenstandInfoFragment" />
+        <action
+            android:id="@+id/action_lagerortInfoFragment_to_lagerortListeFragment"
+            app:destination="@id/lagerortListeFragment" />
+        <action
+            android:id="@+id/action_lagerortInfoFragment_to_lagerortBearbeitenFragment"
+            app:destination="@id/lagerortBearbeitenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lagerortBearbeitenFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.lagerort.bearbeiten.LagerortBearbeitenFragment"
+        android:label="fragment_lagerort_bearbeiten"
+        tools:layout="@layout/fragment_lagerort_bearbeiten" >
+        <action
+            android:id="@+id/action_lagerortBearbeitenFragment_to_lagerortInfoFragment"
+            app:destination="@id/lagerortInfoFragment" />
+        <action
+            android:id="@+id/action_lagerortBearbeitenFragment_to_lagerortListeFragment"
+            app:destination="@id/lagerortListeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inventurLagerortWahlFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.inventur.selektion.InventurLagerortWahlFragment"
+        android:label="fragment_inventur_lagerort_wahl_list"
+        tools:layout="@layout/fragment_inventur_lagerort_wahl_list" >
+        <action
+            android:id="@+id/action_inventurLagerortWahlFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
+        <action
+            android:id="@+id/action_inventurLagerortWahlFragment_to_inventurSchrittFragment"
+            app:destination="@id/inventurSchrittFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inventurSchrittFragment"
+        android:name="de.dhbw.ka.inventurappprototype.gui.inventur.schritt.InventurSchrittFragment"
+        android:label="fragment_inventur_schritt"
+        tools:layout="@layout/fragment_inventur_schritt" >
+        <action
+            android:id="@+id/action_inventurSchrittFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
     </fragment>
 </navigation>

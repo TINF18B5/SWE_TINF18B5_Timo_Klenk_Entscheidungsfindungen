@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
-import de.dhbw.ka.inventurappprototype.gui.gegenstandstyp.info.ARG_GEGENSTANDSTYP
+import de.dhbw.ka.inventurappprototype.gui.ARG_GEGENSTANDSTYP
 
 /**
  * A fragment representing a list of Items.
@@ -53,7 +56,7 @@ class GegenstandstypViewFragment : Fragment() {
 
 
                             val findNavController = view.findNavController()
-                            if(findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
+                            if (findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
                                 findNavController.navigate(
                                     R.id.action_gegenstandstypViewFragment_to_gegenstandstypInfoFragment,
                                     bundle
@@ -73,6 +76,23 @@ class GegenstandstypViewFragment : Fragment() {
             }
         }
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<FloatingActionButton>(R.id.button_gegenstandstyp_liste_erstellen)
+            .setOnClickListener {
+                val findNavController = view.findNavController()
+                if (findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
+                    findNavController.navigate(
+                        R.id.action_gegenstandstypViewFragment_to_gegenstandstypBearbeitenFragment
+                    )
+                }
+            }
+
+        view.findViewById<Button>(R.id.button_gegenstandstypliste_zuruck).setOnClickListener {
+            findNavController().navigate(R.id.action_gegenstandstypViewFragment_to_SecondFragment2)
+        }
     }
 
     companion object {

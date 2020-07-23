@@ -17,18 +17,12 @@ class ZentralerKommandoProzessor {
 
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun bearbeite(kommando: AbstractKommando): ZentralerKommandoProzessor {
-        val result: KommandoErgebnis = when (kommando) {
+    fun bearbeite(kommando: AbstractKommando): KommandoErgebnis {
+        return when (kommando) {
             is AbstractGegenstandKommando -> gegenstandsKommandoProzessor.bearbeite(kommando)
             is AbstractGegenstandstypKommando -> gegenstandstypKommandoProzessor.bearbeite(kommando)
             is AbstractLagerortKommando -> lagerortKommandoProzessor.bearbeite(kommando)
             else -> KommandoErgebnis.NichtAkzeptiert("Unbekanntes Kommando $kommando")
         }
-
-        //if(result is KommandoErgebnis.NichtAkzeptiert) {
-        //    TODO("Wirf fehler für ${result.fehler}")
-        //}
-
-        return this
     }
 }

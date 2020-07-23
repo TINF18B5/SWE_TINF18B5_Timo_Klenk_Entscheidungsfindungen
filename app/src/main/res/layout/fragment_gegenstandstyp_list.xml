@@ -12,15 +12,26 @@
     tools:context=".gui.gegenstandstyp.liste.GegenstandstypViewFragment">
 
     <Button
-        android:id="@+id/button_gegenstandsliste_sort"
+        android:id="@+id/button_gegenstandstypliste_sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_sort"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toEndOf="@id/button_gegenstandstypliste_zuruck"/>
+
+    <Button
+        android:id="@+id/button_gegenstandstypliste_zuruck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_zuruck"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_gegenstandstypliste_sort"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gegenstandstyp_liste_recycler"
@@ -39,5 +50,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="669dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_gegenstandstyp_liste_erstellen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="@id/gegenstandstyp_liste_recycler"
+        app:layout_constraintEnd_toEndOf="@id/gegenstandstyp_liste_recycler"
+        android:contentDescription="@string/button_gegenstandstyp_anlegen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,27 +11,28 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/label_name"
+            android:id="@+id/label_gegenstandstyp_bearbeiten_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
             android:text="@string/label_name"
-            app:layout_constraintEnd_toEndOf="@+id/label_beschreibung"
-            app:layout_constraintStart_toStartOf="@+id/label_beschreibung"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/label_gegenstandstyp_bearbeiten_beschreibung"
+            app:layout_constraintEnd_toEndOf="@id/label_gegenstandstyp_bearbeiten_beschreibung"
+            app:layout_constraintTop_toTopOf="@id/content_gegenstandstyp_bearbeiten_name"
+            android:labelFor="@id/content_gegenstandstyp_bearbeiten_name"
+            />
 
         <TextView
-            android:id="@+id/label_beschreibung"
+            android:id="@+id/label_gegenstandstyp_bearbeiten_beschreibung"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_name"
+            app:layout_constraintTop_toTopOf="@id/content_gegenstandstyp_bearbeiten_beschreibung"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_beschreibung" />
+            android:text="@string/label_beschreibung"
+            android:labelFor="@id/content_gegenstandstyp_bearbeiten_beschreibung"/>
 
         <Button
-            android:id="@+id/button_speichern"
+            android:id="@+id/button_gegenstandstyp_bearbeiten_speichern"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
@@ -41,9 +42,9 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:id="@+id/button_zuruck"
+            android:id="@+id/button_gegenstandstyp_bearbeiten_zuruck"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_speichern"
+            app:layout_constraintEnd_toStartOf="@id/button_gegenstandstyp_bearbeiten_speichern"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="0dp"
@@ -54,36 +55,36 @@
             android:text="@string/button_zuruck" />
 
         <EditText
-            android:id="@+id/bearbeiten_name_gegenstandstyp"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
-            android:autofillHints="@string/label_name"
-            android:ems="10"
-            android:hint="@string/label_name"
-            android:inputType="textPersonName"
-            android:text="@string/label_name"
-            app:layout_constraintBottom_toBottomOf="@+id/label_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/label_name"
-            app:layout_constraintTop_toTopOf="@+id/label_name" />
-
-        <EditText
-            android:id="@+id/bearbeiten_beschreibung_gegenstandstyp"
+            android:id="@+id/content_gegenstandstyp_bearbeiten_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="64dp"
+            android:autofillHints="@string/label_name"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/label_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/label_gegenstandstyp_bearbeiten_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/content_gegenstandstyp_bearbeiten_beschreibung"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:autofillHints="@string/label_beschreibung"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="@string/label_beschreibung"
             android:inputType="textMultiLine"
             android:text="@string/label_beschreibung"
-            app:layout_constraintEnd_toEndOf="@+id/bearbeiten_name_gegenstandstyp"
-            app:layout_constraintStart_toEndOf="@+id/label_beschreibung"
-            app:layout_constraintTop_toBottomOf="@+id/bearbeiten_name_gegenstandstyp" />
+            app:layout_constraintEnd_toEndOf="@id/button_gegenstandstyp_bearbeiten_speichern"
+            app:layout_constraintStart_toEndOf="@id/label_gegenstandstyp_bearbeiten_beschreibung"
+            app:layout_constraintTop_toBottomOf="@id/content_gegenstandstyp_bearbeiten_name"
+
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

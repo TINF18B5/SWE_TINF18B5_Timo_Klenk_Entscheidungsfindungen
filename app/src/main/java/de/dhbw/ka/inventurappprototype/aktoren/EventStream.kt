@@ -10,7 +10,7 @@ import java.util.*
  * Prinzipiell kann sich jeder darauf abonnieren.
  */
 class EventStream {
-    val listeners: MutableMap<Class<*>?, MutableList<(event: AbstractEvent) -> Unit>> =
+    val listeners: MutableMap<Class<*>?, MutableList<EventListener<AbstractEvent>>> =
         mutableMapOf()
 
     /**
@@ -19,10 +19,16 @@ class EventStream {
      *
      * Also ein EventListener auf AbstractEvent erhält alle Events die es gibt.
      */
-    inline fun <reified T : AbstractEvent> register(noinline handler: (event: T) -> Unit) {
+    inline fun <reified T : AbstractEvent> register(noinline handler: EventListener<T>) {
         val list = listeners.computeIfAbsent(T::class.java) { mutableListOf() }
 
         list.add { event: AbstractEvent -> handler(event as T) }
+    }
+
+    fun <T: AbstractEvent> unregister(handler: EventListener<T>) {
+        listeners.values.forEach {
+            it.remove(handler)
+        }
     }
 
     /**
