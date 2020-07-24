@@ -27,11 +27,11 @@ android {
     }
     compileOptions {
         //coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.6'
+        jvmTarget = '1.8'
     }
 
     packagingOptions {
@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation group: 'com.typesafe.akka', name: 'akka-actor-typed_2.11', version: '2.5.21'
+    //implementation group: 'com.typesafe.akka', name: 'akka-actor-typed_2.11', version: '2.5.21'
 
 
     //coreLibraryDesugaring group: 'com.android.tools', name: 'desugar_jdk_libs', version: '1.0.9'

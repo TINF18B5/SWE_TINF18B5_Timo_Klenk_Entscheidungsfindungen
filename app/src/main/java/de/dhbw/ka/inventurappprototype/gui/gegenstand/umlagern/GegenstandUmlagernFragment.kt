@@ -84,7 +84,8 @@ class GegenstandUmlagernFragment : Fragment() {
                 UmlagerRichtung.ERSTMALIGES_EINLAGERN -> GegenstandstypErstellenKommando(
                     AktorenKontext.derzeitigerNutzer.name,
                     content_gegenstand_umlagern_gegenstandstyp_name.text.toString(),
-                    content_gegenstand_umlagern_gegenstandstyp_beschreibung.text.toString()
+                    content_gegenstand_umlagern_gegenstandstyp_beschreibung.text.toString(),
+                    true //TODO Ersetze mit UI element
                 )
             }
 

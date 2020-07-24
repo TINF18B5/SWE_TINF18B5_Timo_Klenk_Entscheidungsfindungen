@@ -98,6 +98,14 @@ class LagerortBearbeitenFragment : Fragment() {
                 }
             }
         }
+        AktorenKontext.eventStream.register(erstelltListener)
+        AktorenKontext.eventStream. register(bearbeitetListener)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AktorenKontext.eventStream.unregister(erstelltListener)
+        AktorenKontext.eventStream.unregister(bearbeitetListener)
     }
 
     companion object {

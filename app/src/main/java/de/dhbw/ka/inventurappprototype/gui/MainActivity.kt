@@ -7,6 +7,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import de.dhbw.ka.inventurappprototype.R
+import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
+import de.dhbw.ka.inventurappprototype.aktoren.datenbank.DatenbankConnector
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
-
+        AktorenKontext.datenbankConnector = DatenbankConnector(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -37,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun onDestroy() {
+        AktorenKontext.datenbankConnector.onDestroy()
+        super.onDestroy()
     }
 }

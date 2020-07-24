@@ -10,7 +10,10 @@ import java.util.*
  * Prinzipiell kann sich jeder darauf abonnieren.
  */
 class EventStream {
-    val listeners: MutableMap<Class<*>?, MutableList<EventListener<AbstractEvent>>> =
+    val normalPriorityListeners: MutableMap<Class<*>, MutableList<EventListener<AbstractEvent>>> =
+        mutableMapOf()
+
+    val highPriorityListeners: MutableMap<Class<*>, MutableList<EventListener<AbstractEvent>>> =
         mutableMapOf()
 
     /**
@@ -19,14 +22,27 @@ class EventStream {
      *
      * Also ein EventListener auf AbstractEvent erhält alle Events die es gibt.
      */
-    inline fun <reified T : AbstractEvent> register(noinline handler: EventListener<T>) {
-        val list = listeners.computeIfAbsent(T::class.java) { mutableListOf() }
+    inline fun <reified T : AbstractEvent> register(
+        noinline handler: EventListener<T>,
+        priority: EventPriority = EventPriority.NORMAL
+    ) {
+        val list = when (priority) {
+            EventPriority.HIGH -> highPriorityListeners
+            EventPriority.NORMAL -> normalPriorityListeners
+        }.computeIfAbsent(T::class.java) { mutableListOf() }
 
-        list.add { event: AbstractEvent -> handler(event as T) }
+        when (priority) {
+            EventPriority.HIGH -> list.add { event: AbstractEvent -> handler(event as T) }
+            EventPriority.NORMAL -> list.add { event: AbstractEvent -> handler(event as T) }
+        }
     }
 
-    fun <T: AbstractEvent> unregister(handler: EventListener<T>) {
-        listeners.values.forEach {
+    fun <T : AbstractEvent> unregister(handler: EventListener<T>) {
+        normalPriorityListeners.values.forEach {
+            it.remove(handler)
+        }
+
+        highPriorityListeners.values.forEach {
             it.remove(handler)
         }
     }
@@ -35,6 +51,14 @@ class EventStream {
      * Versendet ein Event an alle Event listener
      */
     fun publish(event: AbstractEvent) {
+        publishOn(event, highPriorityListeners)
+        publishOn(event, normalPriorityListeners)
+    }
+
+    /**
+     * Versendet ein Event an alle Event listener
+     */
+    private fun publishOn(event: AbstractEvent, listenerMap: Map<Class<*>, MutableList<EventListener<AbstractEvent>>>) {
         val foundClasses: MutableSet<Class<*>> = mutableSetOf()
         val classesToCheck: Queue<Class<*>> = LinkedList()
         classesToCheck.offer(event.javaClass)
@@ -42,7 +66,7 @@ class EventStream {
 
         while (classesToCheck.isNotEmpty()) {
             val poll: Class<*> = classesToCheck.poll() ?: continue
-            listeners[poll]?.forEach { it(event) }
+            listenerMap[poll]?.forEach { it(event) }
             for (implementedInterface in poll.interfaces) {
                 if (foundClasses.add(implementedInterface)) {
                     classesToCheck.offer(implementedInterface)

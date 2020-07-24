@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_lagerortListeFragment_to_lagerortInfoFragment"
             app:destination="@id/lagerortInfoFragment" />
+        <action
+            android:id="@+id/action_lagerortListeFragment_to_lagerortBearbeitenFragment"
+            app:destination="@id/lagerortBearbeitenFragment" />
     </fragment>
     <fragment
         android:id="@+id/gegenstandstypBearbeitenFragment"

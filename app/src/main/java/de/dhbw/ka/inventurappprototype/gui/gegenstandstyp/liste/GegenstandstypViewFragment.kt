@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import de.dhbw.ka.inventurappprototype.R
@@ -74,7 +72,7 @@ class GegenstandstypViewFragment : Fragment() {
             }
             adapter =
                 MyGegenstandstypViewRecyclerViewAdapter(
-                    AktorenKontext.datenbankConnector.gegenstandsTypen
+                    AktorenKontext.datenbankConnector.gegenstandsTypen.toList()
                 )
         }
 
@@ -83,31 +81,32 @@ class GegenstandstypViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<FloatingActionButton>(R.id.button_gegenstandstyp_liste_erstellen)
-            .setOnClickListener {
-                val findNavController = view.findNavController()
-                if (findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
-                    findNavController.navigate(
-                        R.id.action_gegenstandstypViewFragment_to_gegenstandstypBearbeitenFragment
-                    )
-                }
+        button_gegenstandstyp_liste_erstellen.setOnClickListener {
+            val findNavController = view.findNavController()
+            if (findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
+                findNavController.navigate(
+                    R.id.action_gegenstandstypViewFragment_to_gegenstandstypBearbeitenFragment
+                )
             }
+        }
 
-        view.findViewById<Button>(R.id.button_gegenstandstypliste_zuruck).setOnClickListener {
+        button_gegenstandstypliste_zuruck.setOnClickListener {
             findNavController().navigate(R.id.action_gegenstandstypViewFragment_to_SecondFragment2)
         }
 
         button_gegenstandstypliste_sort.setOnClickListener {
-            Snackbar.make(view, R.string.label_nicht_implementiert, BaseTransientBottomBar.LENGTH_SHORT).show()
+            Snackbar.make(
+                view,
+                R.string.label_nicht_implementiert,
+                BaseTransientBottomBar.LENGTH_SHORT
+            ).show()
         }
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
             GegenstandstypViewFragment()

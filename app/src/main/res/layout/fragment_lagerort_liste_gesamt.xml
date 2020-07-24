@@ -18,25 +18,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_lagerort_liste"
-        android:layout_height="0dp"
         android:layout_width="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/button_lagerort_liste_gesamt_sortieren"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/button_lagerort_liste_gesamt_sortieren"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_lagerort_liste_gesamt_sortieren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_lagerort_liste_gesamt_zuruck"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="32dp"
         android:text="@string/button_sort"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_lagerort_liste_gesamt_zuruck" />
 
     <Button
         android:id="@+id/button_lagerort_liste_gesamt_zuruck"
@@ -44,7 +42,16 @@
         android:layout_height="wrap_content"
         android:text="@string/button_zuruck"
         app:layout_constraintBottom_toBottomOf="@id/button_lagerort_liste_gesamt_sortieren"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_lagerort_liste_gesamt_sortieren"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_lagerort_liste_gesamt_erstellen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/description_button_add_floating"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_lagerort_liste"
+        app:layout_constraintEnd_toEndOf="@id/recycler_lagerort_liste" />
 </androidx.constraintlayout.widget.ConstraintLayout>

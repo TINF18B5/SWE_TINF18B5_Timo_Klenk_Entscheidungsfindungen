@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,8 @@ import com.google.android.material.snackbar.Snackbar
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
 import de.dhbw.ka.inventurappprototype.aktoren.EventListener
-import de.dhbw.ka.inventurappprototype.daten.events.gegenstand.GegenstandBearbeitetEvent
+import de.dhbw.ka.inventurappprototype.daten.events.gegenstandstyp.GegenstandstypBearbeitetEvent
+import de.dhbw.ka.inventurappprototype.daten.events.gegenstandstyp.GegenstandstypErstelltEvent
 import de.dhbw.ka.inventurappprototype.daten.gegenstandstyp.Gegenstandstyp
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstandstyp.AbstractGegenstandstypKommando
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstandstyp.GegenstandstypBearbeitenKommando
@@ -32,8 +32,8 @@ import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.KommandoErgebnis
  */
 class GegenstandstypBearbeitenFragment : Fragment() {
     private var gegenstand: Gegenstandstyp? = null
-    private lateinit var bearbeitetListener: EventListener<GegenstandBearbeitetEvent>
-    private lateinit var erstelltListener: EventListener<GegenstandBearbeitetEvent>
+    private lateinit var bearbeitetListener: EventListener<GegenstandstypBearbeitetEvent>
+    private lateinit var erstelltListener: EventListener<GegenstandstypErstelltEvent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,7 @@ class GegenstandstypBearbeitenFragment : Fragment() {
             Editable.Factory.getInstance().newEditable(gegenstand?.beschreibung ?: "")
 
         view.findViewById<Button>(R.id.button_gegenstandstyp_bearbeiten_zuruck).setOnClickListener {
-            if(gegenstand == null) {
+            if (gegenstand == null) {
                 findNavController().navigate(
                     R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypViewFragment
                 )
@@ -75,18 +75,34 @@ class GegenstandstypBearbeitenFragment : Fragment() {
         }
 
         erstelltListener = {
-            findNavController().navigate(
-                R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment,
-                bundleOf(ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstandstyp(it.gegenstandstypID))
-            )
+            val findNavController = findNavController()
+            if (findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
+                findNavController.navigate(
+                    R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment,
+                    bundleOf(
+                        ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstandstyp(
+                            it.ID
+                        )
+                    )
+                )
+            }
         }
 
         bearbeitetListener = {
-            findNavController().navigate(
-                R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment,
-                bundleOf(ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstandstyp(it.gegenstandstypID))
-            )
+            val findNavController = findNavController()
+            if (findNavController.currentDestination?.id != R.id.gegenstandstypInfoFragment) {
+                findNavController.navigate(
+                    R.id.action_gegenstandstypBearbeitenFragment_to_gegenstandstypInfoFragment,
+                    bundleOf(
+                        ARG_GEGENSTANDSTYP to AktorenKontext.datenbankConnector.gegenstandstyp(
+                            it.ID
+                        )
+                    )
+                )
+            }
         }
+        AktorenKontext.eventStream.register(erstelltListener)
+        AktorenKontext.eventStream.register(bearbeitetListener)
 
         view.findViewById<Button>(R.id.button_gegenstandstyp_bearbeiten_speichern)
             .setOnClickListener {
@@ -99,7 +115,8 @@ class GegenstandstypBearbeitenFragment : Fragment() {
                         null -> GegenstandstypErstellenKommando(
                             nutzerName = AktorenKontext.derzeitigerNutzer.name,
                             beschreibung = beschreibung,
-                            name = name
+                            name = name,
+                            erlaubeDoppeltenNamen = true //TODO: Ersetze mit UI Element
                         )
                         else -> GegenstandstypBearbeitenKommando(
                             nutzerName = AktorenKontext.derzeitigerNutzer.name,
@@ -112,7 +129,8 @@ class GegenstandstypBearbeitenFragment : Fragment() {
                 when (val ergebnis =
                     AktorenKontext.zentralerKommandoProzessor.bearbeite(kommando)) {
                     is KommandoErgebnis.NichtAkzeptiert ->
-                        Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT).show()
+                        Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT)
+                            .show()
                 }
             }
     }

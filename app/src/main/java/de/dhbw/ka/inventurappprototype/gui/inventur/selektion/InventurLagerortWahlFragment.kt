@@ -55,7 +55,7 @@ class InventurLagerortWahlFragment : Fragment() {
                 else -> GridLayoutManager(context, columnCount)
             }
             adapter =
-                MyLagerortWahlRecyclerViewAdapter(AktorenKontext.datenbankConnector.lagerorte)
+                MyLagerortWahlRecyclerViewAdapter(AktorenKontext.datenbankConnector.lagerorte.toList())
         }
 
         return view

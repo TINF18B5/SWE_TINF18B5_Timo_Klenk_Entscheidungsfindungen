@@ -70,7 +70,7 @@ class LagerortListeFragment : Fragment() {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            adapter = MyLagerortRecyclerViewAdapter(AktorenKontext.datenbankConnector.lagerorte)
+            adapter = MyLagerortRecyclerViewAdapter(AktorenKontext.datenbankConnector.lagerorte.toList())
         }
 
         return view
@@ -83,6 +83,13 @@ class LagerortListeFragment : Fragment() {
 
         button_lagerort_liste_gesamt_sortieren.setOnClickListener {
             Snackbar.make(view, R.string.label_nicht_implementiert, BaseTransientBottomBar.LENGTH_SHORT).show()
+        }
+
+        button_lagerort_liste_gesamt_erstellen.setOnClickListener {
+            val findNavController = findNavController()
+            if(findNavController.currentDestination?.id != R.id.lagerortBearbeitenFragment) {
+                findNavController.navigate(R.id.action_lagerortListeFragment_to_lagerortBearbeitenFragment)
+            }
         }
     }
 
