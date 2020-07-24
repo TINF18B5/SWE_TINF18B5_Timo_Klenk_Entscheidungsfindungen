@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,9 @@ import de.dhbw.ka.inventurappprototype.aktoren.EventListener
 import de.dhbw.ka.inventurappprototype.daten.events.gegenstand.GegenstandGeloeschtEvent
 import de.dhbw.ka.inventurappprototype.daten.gegenstand.Gegenstand
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstand.GegenstandLoeschenKommando
-import de.dhbw.ka.inventurappprototype.gui.*
+import de.dhbw.ka.inventurappprototype.gui.ARG_GEGENSTAND
+import de.dhbw.ka.inventurappprototype.gui.ARG_LISTEN_ART
+import de.dhbw.ka.inventurappprototype.gui.ARG_RICHTUNG
 import de.dhbw.ka.inventurappprototype.gui.gegenstand.liste.GegenstandsListenArt
 import de.dhbw.ka.inventurappprototype.gui.gegenstand.umlagern.UmlagerRichtung
 import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.KommandoErgebnis
@@ -109,25 +110,16 @@ class GegenstandInfoFragment : Fragment() {
             )
 
             when (val ergebnis = AktorenKontext.zentralerKommandoProzessor.bearbeite(kommando)) {
-                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT)
+                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(
+                    view,
+                    ergebnis.fehler,
+                    BaseTransientBottomBar.LENGTH_SHORT
+                )
                     .show()
             }
         }
 
         geloschtListener = {
-            /*
-            val bundle = Bundle()
-            val id: Int = when (val tempListe = listenArt) {
-                is GegenstandsListenArt.LagerortVerwaltung -> {
-                    bundle.putParcelable(ARG_LAGERORT, tempListe.lagerort)
-                    R.id.action_gegenstandInfoFragment_to_lagerortInfoFragment
-                }
-                is GegenstandsListenArt.GegenstandstypVerwaltung -> {
-                    bundle.putParcelable(ARG_GEGENSTANDSTYP, tempListe.gegenstandstyp)
-                    R.id.action_gegenstandInfoFragment_to_gegenstandstypInfoFragment
-                }
-            }
-             */
             findNavController().popBackStack()
         }
         AktorenKontext.eventStream.register(geloschtListener)

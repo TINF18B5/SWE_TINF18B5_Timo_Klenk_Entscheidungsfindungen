@@ -110,12 +110,14 @@ class DatenbankConnector(context: Context) {
 
 
     private val eventListener: EventListener<AbstractEvent> = { event ->
+        val writableDatabase = openHelper.writableDatabase
+        EventSpeicherHelper.speicherEvent(event, writableDatabase)
         when (event) {
             is GegenstandBearbeitetEvent -> {
                 val copy =
                     gegenstandsMap[event.gegenstandstypID to event.lagerortName]!!.copy(menge = event.menge)
                 gegenstandsMap[event.gegenstandstypID to event.lagerortName] = copy
-                openHelper.writableDatabase.update(
+                writableDatabase.update(
                     InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
                     contentValuesOf(
                         InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME to event.lagerortName,
@@ -133,7 +135,7 @@ class DatenbankConnector(context: Context) {
                     event.menge
                 )
                 gegenstandsMap[event.gegenstandstypID to event.lagerortName] = gegenstand
-                openHelper.writableDatabase.insert(
+                writableDatabase.insert(
                     InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
                     null,
                     contentValuesOf(
@@ -145,7 +147,7 @@ class DatenbankConnector(context: Context) {
             }
             is GegenstandGeloeschtEvent -> {
                 gegenstandsMap.remove(event.gegenstandstypID to event.lagerortName)
-                openHelper.writableDatabase.delete(
+                writableDatabase.delete(
                     InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
                     "${InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME} = ? AND ${InventurAppDatabaseContract.GegenstandEntry.COLUMN_GEGENSTANDSTYP_ID} = ?",
                     arrayOf(event.lagerortName, event.gegenstandstypID.toString())
@@ -154,7 +156,7 @@ class DatenbankConnector(context: Context) {
             is GegenstandstypErstelltEvent -> {
                 val gegenstandstyp = Gegenstandstyp(event.name, event.beschreibung, event.ID)
                 gegenstandstypMap[event.ID] = gegenstandstyp
-                openHelper.writableDatabase.insert(
+                writableDatabase.insert(
                     InventurAppDatabaseContract.GegenstandstypEntry.TABLE_NAME,
                     null,
                     contentValuesOf(
@@ -170,7 +172,7 @@ class DatenbankConnector(context: Context) {
                     beschreibung = event.neueBeschreibung
                 )
                 gegenstandstypMap[event.ID] = copy
-                openHelper.writableDatabase.update(
+                writableDatabase.update(
                     InventurAppDatabaseContract.GegenstandstypEntry.TABLE_NAME,
                     contentValuesOf(
                         InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_ID to copy.ID,
@@ -184,7 +186,7 @@ class DatenbankConnector(context: Context) {
             is LagerortErstelltEvent -> {
                 val lagerort = Lagerort(event.name, event.beschreibung)
                 lagerortMap[event.name] = lagerort
-                openHelper.writableDatabase.insert(
+                writableDatabase.insert(
                     InventurAppDatabaseContract.LagerortEntry.TABLE_NAME,
                     null,
                     contentValuesOf(
@@ -208,7 +210,7 @@ class DatenbankConnector(context: Context) {
                     }
 
 
-                openHelper.writableDatabase.transaction {
+                writableDatabase.transaction {
                     update(
                         InventurAppDatabaseContract.LagerortEntry.TABLE_NAME,
                         contentValuesOf(
