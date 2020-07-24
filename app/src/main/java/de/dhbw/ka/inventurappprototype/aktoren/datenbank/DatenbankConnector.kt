@@ -19,7 +19,13 @@ import de.dhbw.ka.inventurappprototype.daten.gegenstandstyp.Gegenstandstyp
 import de.dhbw.ka.inventurappprototype.daten.lagerort.Lagerort
 import de.dhbw.ka.inventurappprototype.gui.gegenstand.liste.GegenstandsListenArt
 
+/**
+ * Zuständig für die Verbindung mit der SQLite Datenbank.
+ */
 class DatenbankConnector(context: Context) {
+    //Interne Darstellungen des Speichers.
+    //Stammen noch von der ersten Implementierung ohne SQLite.
+    //Können irgendwann durch direktzugriff auf die DB ersetzt werden.
     private val gegenstandsMap: MutableMap<Pair<Int, String>, Gegenstand> = mutableMapOf()
     private val gegenstandstypMap: MutableMap<Int, Gegenstandstyp> = mutableMapOf()
     private val lagerortMap: MutableMap<String, Lagerort> = mutableMapOf()
@@ -109,6 +115,9 @@ class DatenbankConnector(context: Context) {
     }
 
 
+    /**
+     * Enpfängt alle Events, speichert die, die er muss, und bearbeitet die Datenbasis den Events entsprechent
+     */
     private val eventListener: EventListener<AbstractEvent> = { event ->
         val writableDatabase = openHelper.writableDatabase
         EventSpeicherHelper.speicherEvent(event, writableDatabase)
@@ -242,14 +251,19 @@ class DatenbankConnector(context: Context) {
         )
     }
 
+    /**
+     * Schließt den OpenHelper.
+     * Wird bei Beenden der App aufgerufen
+     */
     fun onDestroy() {
         AktorenKontext.eventStream.unregister(eventListener)
-
-
-
         openHelper.close()
     }
 
+    /**
+     * Ruft alle Gegenstände der entsprechenden Art ab.
+     * Delegiert an die spezifischeren Funktionen
+     */
     fun gegenstaende(listenart: GegenstandsListenArt): List<Gegenstand> {
         return when (listenart) {
             is GegenstandsListenArt.LagerortVerwaltung -> gegenstaende(listenart.lagerort)
@@ -257,18 +271,38 @@ class DatenbankConnector(context: Context) {
         }
     }
 
+    /**
+     * Alle Gegenstände, die an diesem Ort liegen.
+     * Leer, wenn keine existieren
+     */
     fun gegenstaende(lagerort: Lagerort): List<Gegenstand> =
         gegenstandsMap.values.filter { it.ort == lagerort }
 
+    /**
+     * Alle Gegenstände, die von diesem Typ sind.
+     * Leer, wenn keine existieren
+     */
     fun gegenstaende(gegenstandstyp: Gegenstandstyp): List<Gegenstand> =
         gegenstandsMap.values.filter { it.typ.ID == gegenstandstyp.ID }
 
+    /**
+     * Ruft Gegenstandstyp mit der entsprechenden ID ab.
+     * <c>null</c> wenn keiner existiert.
+     */
     fun gegenstandstyp(gegenstandstypID: Int): Gegenstandstyp? =
         gegenstandstypMap[gegenstandstypID]
 
+    /**
+     * Ruft Lagerort mit der entsprechenden namen ab.
+     * <c>null</c> wenn keiner existiert.
+     */
     fun lagerort(name: String): Lagerort? =
         lagerortMap[name]
 
+    /**
+     * Ruft gegenstand vom Typ mit [typID] und Lagerort mit Namen [lagerortName] ab.
+     * <c>null</c> wenn Gegenstand, gegenstandstyp oder Lagerort nicht existiert
+     */
     fun gegenstand(typID: Int, lagerortName: String): Gegenstand? =
         when (val lagerort = lagerort(lagerortName)) {
             null -> null
@@ -277,13 +311,22 @@ class DatenbankConnector(context: Context) {
             }
         }
 
-
+    /**
+     * Ruft alle Lagerorte ab
+     */
     val lagerorte: Collection<Lagerort>
         get() = lagerortMap.values
 
+    /**
+     * Ruft alle Gegenstandstypen ab
+     */
     val gegenstandsTypen: Collection<Gegenstandstyp>
         get() = gegenstandstypMap.values
 
+    /**
+     * Ruft die nächste freie Gegenstandstyp ID ab.
+     * Wird benutzt, um neuen Gegenständen eine ID zuzuweisen.
+     */
     inline val freieGegenstandstypId: Int
         get() = (gegenstandsTypen.map { it.ID }.max() ?: 0) + 1
 }

@@ -1,5 +1,7 @@
 package de.dhbw.ka.inventurappprototype.aktoren
 
-import de.dhbw.ka.inventurappprototype.daten.events.AbstractEvent
-
+/**
+ * Event Listener Funktion.
+ * Zur Vereinfachung von Aufrufen als Alias
+ */
 typealias EventListener<T> = (event: T) -> Unit

@@ -37,6 +37,10 @@ class EventStream {
         }
     }
 
+    /**
+     * Entfernt einen Listener wieder.
+     * Bedeutet aber auch, dass der Abonnierende eine Referenz auf den Listener behalten muss.
+     */
     fun <T : AbstractEvent> unregister(handler: EventListener<T>) {
         normalPriorityListeners.values.forEach {
             it.remove(handler)
@@ -78,13 +82,4 @@ class EventStream {
             }
         }
     }
-
-    /*
-    //vermutlich YAGNI, aber ich lass es mal drin
-    inline fun <reified T : U, U : AbstractEvent> registerContravariant(noinline handler: (event: U) -> Unit) {
-        val list = listeners.computeIfAbsent(T::class.java) { mutableListOf() }
-        @Suppress("UNCHECKED_CAST")
-        list.add { event: AbstractEvent -> handler(event as U) }
-    }
- */
 }

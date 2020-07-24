@@ -10,9 +10,15 @@ import kotlin.random.Random
 const val filename = "InventurApp.db"
 const val version = 1
 
+/**
+ * Adapter, der sich um den Aufbau der Verbindung zu SQLite Datenbank kümmert.
+ * Sollte am Ende der Anwendung geschlossen werden. (s. [close]).
+ * Wird im [DatenbankConnector] benutzt
+ */
 class InventurAppOpenHelper(
     context: Context?
 ) : SQLiteOpenHelper(context, filename, null, version) {
+
     override fun onCreate(db: SQLiteDatabase?) {
         if (db == null) {
             error("Null Database?!?")
@@ -36,6 +42,16 @@ class InventurAppOpenHelper(
         standardWerteEinfugen(db)
     }
 
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        //Wir sind auf Datenbank Version 1 also keine Upgrades nötig.
+    }
+
+    /**
+     * Erstellt einen Nutzer.
+     * Erstellt je 5 Lagerorte und Gegenstandstypen.
+     * Erzeugt zufällige Gegenstände auf deren Basis.
+     * Die Gegenstände sind fest ge-seeded, also sehen zwei neu erzeugte Datenbanken gleich aus.
+     */
     private fun standardWerteEinfugen(db: SQLiteDatabase) {
         val timestampCalendar: Calendar = GregorianCalendar.getInstance()
         timestampCalendar.set(2020, 7, 10, 12, 12, 0)
@@ -156,9 +172,5 @@ class InventurAppOpenHelper(
          */
 
 
-    }
-
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        //Nothing yet to do
     }
 }

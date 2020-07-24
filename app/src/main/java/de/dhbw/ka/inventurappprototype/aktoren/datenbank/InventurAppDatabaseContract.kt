@@ -1,5 +1,9 @@
 package de.dhbw.ka.inventurappprototype.aktoren.datenbank
 
+/**
+ * Spezifiziert den Aufbau der SQLite Datenbank.
+ * Gespeichert werden Tabellennamen und spaltennamen, sowie ein Statement, um die Tabelle zu erstellen.
+ */
 @Suppress("MemberVisibilityCanBePrivate")
 class InventurAppDatabaseContract {
     class LagerortEntry {

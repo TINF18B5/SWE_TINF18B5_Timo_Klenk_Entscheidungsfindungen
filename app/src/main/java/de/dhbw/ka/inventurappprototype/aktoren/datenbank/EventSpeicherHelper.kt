@@ -12,6 +12,12 @@ import de.dhbw.ka.inventurappprototype.daten.events.lagerort.LagerortErstelltEve
 
 class EventSpeicherHelper {
     companion object {
+        /**
+         * Speichert das entsprechende Event in der [writableDatabase].
+         * Events vom Typ [NichtPersistentesEvent] werden ignoriert.
+         * Andere Events werden an entsprechende funktionen (s. unten) delegiert.
+         * 'Vergessene' Events werfen einen error.
+         */
         fun speicherEvent(event: AbstractEvent, writableDatabase: SQLiteDatabase) {
             when (event) {
                 is NichtPersistentesEvent -> return

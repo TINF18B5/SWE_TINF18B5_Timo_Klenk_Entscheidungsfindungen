@@ -10,7 +10,11 @@ import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.gegenstandstyp.Gegen
 import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.inventur.InventurKommandoProzessor
 import de.dhbw.ka.inventurappprototype.kommando_bearbeitung.lagerort.LagerortKommandoProzessor
 
-class ZentralerKommandoProzessor {
+/**
+ * Der Kommandoprozessor, an den alle Events der Anwendung geleitet werden.
+ * Delegiert an seine Kinder.
+ */
+class ZentralerKommandoProzessor: KommandoProzessor<AbstractKommando> {
     private val gegenstandsKommandoProzessor: GegenstandsKommandoProzessor =
         GegenstandsKommandoProzessor()
     private val gegenstandstypKommandoProzessor: GegenstandstypKommandoProzessor =
@@ -21,8 +25,7 @@ class ZentralerKommandoProzessor {
         InventurKommandoProzessor()
 
 
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun bearbeite(kommando: AbstractKommando): KommandoErgebnis {
+    override fun bearbeite(kommando: AbstractKommando): KommandoErgebnis {
         return when (kommando) {
             is AbstractGegenstandKommando -> gegenstandsKommandoProzessor.bearbeite(kommando)
             is AbstractGegenstandstypKommando -> gegenstandstypKommandoProzessor.bearbeite(kommando)
