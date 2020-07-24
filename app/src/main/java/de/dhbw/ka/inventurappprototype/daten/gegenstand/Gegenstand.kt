@@ -8,6 +8,3 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Gegenstand(val typ: Gegenstandstyp, val ort: Lagerort, var menge: Int) : Parcelable
-
-fun erstelleGegenstand(typ: Gegenstandstyp, ort: Lagerort, menge: Int, nutzer: Nutzer): Gegenstand =
-    Gegenstand(typ, ort, menge) //TODO: Implement

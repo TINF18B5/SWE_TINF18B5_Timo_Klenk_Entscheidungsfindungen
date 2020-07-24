@@ -32,12 +32,10 @@
     <string name="label_menge">Menge</string>
     <string name="label_grund">Grund</string>
 
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="hello_first_fragment">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description_button_add_floating">A plus sign in a circle</string>
     <string name="button_bestatigen">Bestätigen</string>
     <string name="button_gegenstandstyp_anlegen">Gegenstandstyp anlegen</string>
     <string name="label_nicht_implementiert">Noch nicht implementiert!</string>
+    <string name="label_login_explanation">Hier wird ein Login entstehen, wenn er implementiert wird</string>
+    <string name="label_gegenstands_suche_nicht_implementiert">Hier würde die Möglichkeit kommen, bestehende Gegenstandstypen zu suchen und zu übernehmen. Noch nicht implementiert.</string>
 </resources>

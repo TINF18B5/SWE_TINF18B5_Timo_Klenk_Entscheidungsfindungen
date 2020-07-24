@@ -33,7 +33,7 @@ class MyLagerortRecyclerViewAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val lagerortName: TextView = view.findViewById(R.id.content_lagerort_liste_single_name)
-        val lagerortBeschreibung: TextView = view.findViewById(R.id.content_lagerort_liste_single_name)
+        val lagerortBeschreibung: TextView = view.findViewById(R.id.content_lagerort_liste_single_beschreibung)
         lateinit var lagerort: Lagerort
 
         override fun toString(): String {

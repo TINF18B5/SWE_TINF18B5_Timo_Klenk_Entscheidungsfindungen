@@ -5,7 +5,7 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -13,6 +13,8 @@ import com.google.android.material.snackbar.Snackbar
 import de.dhbw.ka.inventurappprototype.R
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
 import de.dhbw.ka.inventurappprototype.aktoren.EventListener
+import de.dhbw.ka.inventurappprototype.daten.events.gegenstand.GegenstandBearbeitetEvent
+import de.dhbw.ka.inventurappprototype.daten.events.gegenstand.GegenstandErstelltEvent
 import de.dhbw.ka.inventurappprototype.daten.events.gegenstandstyp.GegenstandstypErstelltEvent
 import de.dhbw.ka.inventurappprototype.daten.gegenstand.Gegenstand
 import de.dhbw.ka.inventurappprototype.daten.kommandos.gegenstand.GegenstandAuslagernKommando
@@ -32,7 +34,9 @@ import kotlinx.android.synthetic.main.fragment_gegenstand_umlagern.*
 class GegenstandUmlagernFragment : Fragment() {
     private lateinit var gegenstand: Gegenstand
     private var richtung: UmlagerRichtung = UmlagerRichtung.EINLAGERN
-    private lateinit var erstelltListener:EventListener<GegenstandstypErstelltEvent>
+    private lateinit var gegenstandstypErstelltListener: EventListener<GegenstandstypErstelltEvent>
+    private lateinit var gegenstandErstelltListener: EventListener<GegenstandErstelltEvent>
+    private lateinit var gegenstandBearbeitetListener: EventListener<GegenstandBearbeitetEvent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +63,16 @@ class GegenstandUmlagernFragment : Fragment() {
 
         content_gegenstand_umlagern_gegenstandstyp_name.text =
             Editable.Factory.getInstance().newEditable(gegenstand.typ.name)
+
         content_gegenstand_umlagern_gegenstandstyp_beschreibung.text =
             Editable.Factory.getInstance().newEditable(gegenstand.typ.beschreibung)
+
+        if (richtung != UmlagerRichtung.ERSTMALIGES_EINLAGERN) {
+            content_gegenstand_umlagern_gegenstandstyp_name.isEnabled = false
+            content_gegenstand_umlagern_gegenstandstyp_beschreibung.isEnabled = false
+            button_gegenstand_umlagern_gegenstandstyp_suchen.isVisible = false
+        }
+
 
         content_gegenstand_umlagern_lagerort_name.text =
             gegenstand.ort.name
@@ -90,35 +102,56 @@ class GegenstandUmlagernFragment : Fragment() {
             }
 
             when (val ergebnis = AktorenKontext.zentralerKommandoProzessor.bearbeite(kommando)) {
-                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(view, ergebnis.fehler, BaseTransientBottomBar.LENGTH_SHORT)
-                    .show()
+                is KommandoErgebnis.NichtAkzeptiert -> Snackbar.make(
+                    view,
+                    ergebnis.fehler,
+                    BaseTransientBottomBar.LENGTH_SHORT
+                ).show()
             }
         }
 
         button_gegenstand_umlagern_zuruck.setOnClickListener {
-            /*
-            findNavController().navigate(
-                R.id.action_gegenstandUmlagernFragment_to_gegenstandInfoFragment,
-                bundleOf(ARG_GEGENSTAND to gegenstand)
-            )
-             */
             findNavController().popBackStack()
         }
-        erstelltListener = {
-            richtung = UmlagerRichtung.EINLAGERN
-            gegenstand = AktorenKontext.datenbankConnector.gegenstand(
-                typID = it.ID,
-                lagerortName = gegenstand.ort.name
-            )!!
+
+        button_gegenstand_umlagern_gegenstandstyp_suchen.setOnClickListener {
+            Snackbar.make(
+                view,
+                R.string.label_gegenstands_suche_nicht_implementiert,
+                BaseTransientBottomBar.LENGTH_SHORT
+            ).show()
         }
-        AktorenKontext.eventStream.register(erstelltListener)
+
+
+        gegenstandstypErstelltListener = {
+            richtung = UmlagerRichtung.EINLAGERN
+            gegenstand = Gegenstand(
+                typ = AktorenKontext.datenbankConnector.gegenstandstyp(it.ID)!!,
+                ort = gegenstand.ort,
+                menge = content_gegenstand_umlagern_menge.text.toString().toInt()
+            )
+            button_gegenstand_umlagern_umlagern.callOnClick()
+        }
+
+        gegenstandErstelltListener = {
+            findNavController().popBackStack()
+        }
+
+        gegenstandBearbeitetListener = {
+            findNavController().popBackStack()
+        }
+
+        AktorenKontext.eventStream.register(gegenstandstypErstelltListener)
+        AktorenKontext.eventStream.register(gegenstandErstelltListener)
+        AktorenKontext.eventStream.register(gegenstandBearbeitetListener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-            AktorenKontext.eventStream.unregister(erstelltListener)
-
+        AktorenKontext.eventStream.unregister(gegenstandstypErstelltListener)
+        AktorenKontext.eventStream.unregister(gegenstandErstelltListener)
+        AktorenKontext.eventStream.unregister(gegenstandBearbeitetListener)
     }
 
     companion object {

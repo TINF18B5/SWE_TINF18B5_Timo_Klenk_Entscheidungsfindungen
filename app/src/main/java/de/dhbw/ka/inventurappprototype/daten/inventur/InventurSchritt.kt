@@ -5,8 +5,5 @@ import de.dhbw.ka.inventurappprototype.daten.gegenstand.Gegenstand
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class InventurSchritt(val zuPruefen: Gegenstand, val zaehltZumZweitenMal: Boolean): Parcelable {
-    fun gezaehltMenge(menge: Int): GezaehltStatus {
-        TODO("implement")
-    }
-}
+data class InventurSchritt(val zuPruefen: Gegenstand, val zaehltZumZweitenMal: Boolean) :
+    Parcelable

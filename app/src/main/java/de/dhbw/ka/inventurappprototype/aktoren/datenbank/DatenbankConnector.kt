@@ -87,7 +87,7 @@ class DatenbankConnector(context: Context) {
             arrayOf(
                 InventurAppDatabaseContract.GegenstandEntry.COLUMN_GEGENSTANDSTYP_ID,
                 InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME,
-                InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME
+                InventurAppDatabaseContract.GegenstandEntry.COLUMN_MENGE
             ),
             null, null, null, null, null, null
         ).use {
@@ -98,11 +98,12 @@ class DatenbankConnector(context: Context) {
             val indexMenge =
                 it.getColumnIndex(InventurAppDatabaseContract.GegenstandEntry.COLUMN_MENGE)
             while (it.moveToNext()) {
-                Gegenstand(
+                val gegenstand = Gegenstand(
                     typ = gegenstandstyp(it.getInt(indexID))!!,
                     ort = lagerort(it.getString(indexLagerort))!!,
                     menge = it.getInt(indexMenge)
                 )
+                gegenstandsMap[gegenstand.typ.ID to gegenstand.ort.name] = gegenstand
             }
         }
     }
@@ -237,36 +238,6 @@ class DatenbankConnector(context: Context) {
             eventListener,
             EventPriority.HIGH
         )
-
-        /*
-        for (lagerortNummer in 0..5) {
-            val lagerort = Lagerort(
-                name = "Lagerort $lagerortNummer",
-                beschreibung = "Beschreibung $lagerortNummer"
-            )
-            lagerortMap[lagerort.name] = lagerort
-        }
-
-        for (gegenstandstypNummer in 0..5) {
-            val gegenstandstyp = Gegenstandstyp(
-                name = "Gegenstandstyp $gegenstandstypNummer",
-                beschreibung = "Beschreibung $gegenstandstypNummer",
-                ID = freieGegenstandstypId
-            )
-            gegenstandstypMap[gegenstandstyp.ID] = gegenstandstyp
-        }
-
-        val rand = Random(0x123456789)
-        lagerortMap.values
-            .filter { rand.nextBoolean() }
-            .forEach { lagerort ->
-                gegenstandstypMap.values
-                    .filter { rand.nextBoolean() }
-                    .map { Gegenstand(it, lagerort, rand.nextInt(1, 100)) }
-                    .forEach { gegenstandsMap[it.typ.ID to it.ort.name] = it }
-            }
-
-         */
     }
 
     fun onDestroy() {

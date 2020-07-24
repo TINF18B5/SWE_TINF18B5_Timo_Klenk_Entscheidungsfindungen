@@ -68,7 +68,14 @@ class GegenstandsKommandoProzessor : KommandoProzessor<AbstractGegenstandKommand
                 kommando.gegenstandstypID,
                 kommando.lagerortName
             )) {
-            null -> KommandoErgebnis.NichtAkzeptiert("")
+            null -> AktorenKontext.zentralerKommandoProzessor.bearbeite(
+                GegenstandErstellenKommando(
+                    nutzerName = kommando.nutzerName,
+                    menge = kommando.menge,
+                    lagerortName = kommando.lagerortName,
+                    gegenstandstypID = kommando.gegenstandstypID
+                )
+            )
             else -> AktorenKontext.zentralerKommandoProzessor.bearbeite(
                 GegenstandBearbeitenKommando(
                     nutzerName = kommando.nutzerName,

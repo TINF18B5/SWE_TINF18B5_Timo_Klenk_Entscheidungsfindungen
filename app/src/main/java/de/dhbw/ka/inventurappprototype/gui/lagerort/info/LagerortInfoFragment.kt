@@ -95,7 +95,6 @@ class LagerortInfoFragment : Fragment() {
          * @param lagerort Der Lagerort.
          * @return A new instance of fragment LagerortInfoFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(lagerort: Lagerort) =
             LagerortInfoFragment()

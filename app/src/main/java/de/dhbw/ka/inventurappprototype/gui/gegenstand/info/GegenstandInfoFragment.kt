@@ -115,6 +115,7 @@ class GegenstandInfoFragment : Fragment() {
         }
 
         geloschtListener = {
+            /*
             val bundle = Bundle()
             val id: Int = when (val tempListe = listenArt) {
                 is GegenstandsListenArt.LagerortVerwaltung -> {
@@ -126,7 +127,8 @@ class GegenstandInfoFragment : Fragment() {
                     R.id.action_gegenstandInfoFragment_to_gegenstandstypInfoFragment
                 }
             }
-            findNavController().navigate(id, bundle)
+             */
+            findNavController().popBackStack()
         }
         AktorenKontext.eventStream.register(geloschtListener)
     }

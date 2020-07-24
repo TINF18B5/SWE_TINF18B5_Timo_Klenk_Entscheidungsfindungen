@@ -15,23 +15,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
             android:labelFor="@id/content_gegenstand_umlagern_gegenstandstyp_name"
             android:text="@string/label_name"
             app:layout_constraintEnd_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/content_gegenstand_umlagern_gegenstandstyp_name" />
 
         <TextView
             android:id="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:labelFor="@id/content_gegenstand_umlagern_gegenstandstyp_beschreibung"
             android:text="@string/label_beschreibung"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_name" />
+            app:layout_constraintTop_toTopOf="@id/content_gegenstand_umlagern_gegenstandstyp_beschreibung" />
 
         <TextView
             android:id="@+id/label_gegenstand_umlagern_menge"
@@ -52,7 +50,7 @@
             android:text="@string/label_name"
             app:layout_constraintEnd_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung" />
+            app:layout_constraintTop_toBottomOf="@id/content_gegenstand_umlagern_gegenstandstyp_beschreibung" />
 
         <TextView
             android:id="@+id/label_gegenstand_umlagern_lagerort_beschreibung"
@@ -129,36 +127,49 @@
         <EditText
             android:id="@+id/content_gegenstand_umlagern_gegenstandstyp_name"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
             android:autofillHints="@string/label_name"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/label_name"
-            app:layout_constraintBottom_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_name"
-            app:layout_constraintTop_toTopOf="@+id/label_gegenstand_umlagern_gegenstand_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/content_gegenstand_umlagern_gegenstandstyp_beschreibung"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:autofillHints="@string/label_beschreibung"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:text="@string/label_beschreibung"
-            app:layout_constraintBottom_toBottomOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
-            app:layout_constraintTop_toTopOf="@+id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintTop_toBottomOf="@id/content_gegenstand_umlagern_gegenstandstyp_name"
             app:layout_constraintVertical_bias="1.0"
             tools:text="@string/label_beschreibung" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_gegenstand_umlagern_gegenstandstyp_suchen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/description_button_add_floating"
+            android:src="@android:drawable/ic_menu_search"
+            app:fabSize="mini"
+            app:layout_constraintEnd_toEndOf="@id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintStart_toStartOf="@id/label_gegenstand_umlagern_gegenstand_beschreibung"
+            app:layout_constraintTop_toBottomOf="@id/label_gegenstand_umlagern_gegenstand_beschreibung" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
