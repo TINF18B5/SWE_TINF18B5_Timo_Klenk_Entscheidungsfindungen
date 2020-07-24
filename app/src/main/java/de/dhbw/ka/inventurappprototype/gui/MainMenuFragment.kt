@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.dhbw.ka.inventurappprototype.R
+import kotlinx.android.synthetic.main.fragment_main_menu.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -25,17 +25,17 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_main_menu_inventur).setOnClickListener {
+        button_main_menu_inventur.setOnClickListener {
             findNavController().navigate(R.id.action_MainMenuFragment_to_inventurLagerortWahlFragment)
         }
 
-        view.findViewById<Button>(R.id.button_main_menu_gegenstandstypliste).setOnClickListener {
+        button_main_menu_gegenstandstypliste.setOnClickListener {
             findNavController().navigate(R.id.action_MainMenuFragment_to_gegenstandstypViewFragment)
         }
 
-        view.findViewById<Button>(R.id.button_main_menu_lagerortliste).setOnClickListener {
+        button_main_menu_lagerortliste.setOnClickListener {
             val findNavController = findNavController()
-            if(findNavController.currentDestination?.id != R.id.lagerortListeFragment) {
+            if (findNavController.currentDestination?.id != R.id.lagerortListeFragment) {
                 findNavController.navigate(R.id.action_MainMenuFragment_to_lagerortListeFragment)
             }
         }

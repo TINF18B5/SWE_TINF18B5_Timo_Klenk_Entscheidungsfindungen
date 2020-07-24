@@ -24,20 +24,20 @@ class MyGegenstandstypViewRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.name
-        holder.contentView.text = item.beschreibung
+        holder.name.text = item.name
+        holder.beschreibung.text = item.beschreibung
         holder.gegenstandstyp = item
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.item_number)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val name: TextView = view.findViewById(R.id.content_gegenstandstyp_liste_single_name)
+        val beschreibung: TextView = view.findViewById(R.id.content_gegenstandstyp_liste_single_beschreibung)
         lateinit var gegenstandstyp: Gegenstandstyp
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + beschreibung.text + "'"
         }
     }
 }

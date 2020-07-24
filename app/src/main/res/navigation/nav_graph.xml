@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_login">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_LoginFragment_to_MainMenuFragment"
             app:destination="@id/MainMenuFragment" />
     </fragment>
     <fragment
