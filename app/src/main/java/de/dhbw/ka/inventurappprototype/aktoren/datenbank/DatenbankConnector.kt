@@ -1,6 +1,8 @@
 package de.dhbw.ka.inventurappprototype.aktoren.datenbank
 
 import android.content.Context
+import androidx.core.content.contentValuesOf
+import androidx.core.database.sqlite.transaction
 import de.dhbw.ka.inventurappprototype.aktoren.AktorenKontext
 import de.dhbw.ka.inventurappprototype.aktoren.EventListener
 import de.dhbw.ka.inventurappprototype.aktoren.EventPriority
@@ -25,6 +27,14 @@ class DatenbankConnector(context: Context) {
     private val openHelper: InventurAppOpenHelper = InventurAppOpenHelper(context)
 
     init {
+        liesDatenbankEin()
+    }
+
+    /**
+     * Liest die Datenbank in den internen Speicher.
+     * Kann bei späterer Implementierung mit direktem DB-Zugriff entfernt werden.
+     */
+    private fun liesDatenbankEin() {
         openHelper.readableDatabase.query(
             true,
             InventurAppDatabaseContract.GegenstandstypEntry.TABLE_NAME,
@@ -100,34 +110,94 @@ class DatenbankConnector(context: Context) {
 
     private val eventListener: EventListener<AbstractEvent> = { event ->
         when (event) {
-            is GegenstandBearbeitetEvent ->
-                gegenstandsMap[event.gegenstandstypID to event.lagerortName] =
+            is GegenstandBearbeitetEvent -> {
+                val copy =
                     gegenstandsMap[event.gegenstandstypID to event.lagerortName]!!.copy(menge = event.menge)
-            is GegenstandErstelltEvent ->
-                gegenstandsMap[event.gegenstandstypID to event.lagerortName] =
-                    Gegenstand(
-                        gegenstandstyp(event.gegenstandstypID)!!,
-                        lagerort(event.lagerortName)!!,
-                        event.menge
+                gegenstandsMap[event.gegenstandstypID to event.lagerortName] = copy
+                openHelper.writableDatabase.update(
+                    InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
+                    contentValuesOf(
+                        InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME to event.lagerortName,
+                        InventurAppDatabaseContract.GegenstandEntry.COLUMN_GEGENSTANDSTYP_ID to event.gegenstandstypID,
+                        InventurAppDatabaseContract.GegenstandEntry.COLUMN_MENGE to event.menge
+                    ),
+                    "${InventurAppDatabaseContract.GegenstandEntry.COLUMN_GEGENSTANDSTYP_ID} = ? AND ${InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME} = ?",
+                    arrayOf(event.lagerortName, event.gegenstandstypID.toString())
+                )
+            }
+            is GegenstandErstelltEvent -> {
+                val gegenstand = Gegenstand(
+                    gegenstandstyp(event.gegenstandstypID)!!,
+                    lagerort(event.lagerortName)!!,
+                    event.menge
+                )
+                gegenstandsMap[event.gegenstandstypID to event.lagerortName] = gegenstand
+                openHelper.writableDatabase.insert(
+                    InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
+                    null,
+                    contentValuesOf(
+                        InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME to event.lagerortName,
+                        InventurAppDatabaseContract.GegenstandEntry.COLUMN_GEGENSTANDSTYP_ID to event.gegenstandstypID,
+                        InventurAppDatabaseContract.GegenstandEntry.COLUMN_MENGE to event.menge
                     )
-            is GegenstandGeloeschtEvent ->
+                )
+            }
+            is GegenstandGeloeschtEvent -> {
                 gegenstandsMap.remove(event.gegenstandstypID to event.lagerortName)
-            is GegenstandstypErstelltEvent ->
-                gegenstandstypMap[event.ID] =
-                    Gegenstandstyp(event.name, event.beschreibung, event.ID)
-            is GegenstandstypBearbeitetEvent ->
-                gegenstandstypMap[event.ID] = gegenstandstypMap[event.ID]!!.copy(
+                openHelper.writableDatabase.delete(
+                    InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
+                    "${InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME} = ? AND ${InventurAppDatabaseContract.GegenstandEntry.COLUMN_GEGENSTANDSTYP_ID} = ?",
+                    arrayOf(event.lagerortName, event.gegenstandstypID.toString())
+                )
+            }
+            is GegenstandstypErstelltEvent -> {
+                val gegenstandstyp = Gegenstandstyp(event.name, event.beschreibung, event.ID)
+                gegenstandstypMap[event.ID] = gegenstandstyp
+                openHelper.writableDatabase.insert(
+                    InventurAppDatabaseContract.GegenstandstypEntry.TABLE_NAME,
+                    null,
+                    contentValuesOf(
+                        InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_ID to event.ID,
+                        InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_NAME to event.name,
+                        InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_BESCHREIBUNG to event.beschreibung
+                    )
+                )
+            }
+            is GegenstandstypBearbeitetEvent -> {
+                val copy = gegenstandstypMap[event.ID]!!.copy(
                     name = event.neuerName,
                     beschreibung = event.neueBeschreibung
                 )
-            is LagerortErstelltEvent ->
-                lagerortMap[event.name] = Lagerort(event.name, event.beschreibung)
+                gegenstandstypMap[event.ID] = copy
+                openHelper.writableDatabase.update(
+                    InventurAppDatabaseContract.GegenstandstypEntry.TABLE_NAME,
+                    contentValuesOf(
+                        InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_ID to copy.ID,
+                        InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_NAME to copy.name,
+                        InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_BESCHREIBUNG to copy.beschreibung
+                    ),
+                    "${InventurAppDatabaseContract.GegenstandstypEntry.COLUMN_ID} = ?",
+                    arrayOf(event.ID.toString())
+                )
+            }
+            is LagerortErstelltEvent -> {
+                val lagerort = Lagerort(event.name, event.beschreibung)
+                lagerortMap[event.name] = lagerort
+                openHelper.writableDatabase.insert(
+                    InventurAppDatabaseContract.LagerortEntry.TABLE_NAME,
+                    null,
+                    contentValuesOf(
+                        InventurAppDatabaseContract.LagerortEntry.COLUMN_NAME to lagerort.name,
+                        InventurAppDatabaseContract.LagerortEntry.COLUMN_BESCHREIBUNG to lagerort.beschreibung
+                    )
+                )
+            }
             is LagerortBearbeitetEvent -> {
-                lagerortMap[event.neuerName] = lagerortMap[event.name]!!.copy(
+                val copy = lagerortMap[event.name]!!.copy(
                     name = event.neuerName,
                     beschreibung = event.neueBeschreibung
                 )
-
+                lagerortMap[event.neuerName] = copy
 
                 gegenstandsMap.keys.toList()
                     .filter { it.second == event.name }
@@ -135,6 +205,28 @@ class DatenbankConnector(context: Context) {
                         gegenstandsMap[it.first to event.neuerName] =
                             gegenstandsMap.remove(it)!!
                     }
+
+
+                openHelper.writableDatabase.transaction {
+                    update(
+                        InventurAppDatabaseContract.LagerortEntry.TABLE_NAME,
+                        contentValuesOf(
+                            InventurAppDatabaseContract.LagerortEntry.COLUMN_NAME to copy.name,
+                            InventurAppDatabaseContract.LagerortEntry.COLUMN_BESCHREIBUNG to copy.beschreibung
+                        ),
+                        "${InventurAppDatabaseContract.LagerortEntry.COLUMN_NAME} = ?",
+                        arrayOf(event.name)
+                    )
+
+                    update(
+                        InventurAppDatabaseContract.GegenstandEntry.TABLE_NAME,
+                        contentValuesOf(
+                            InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME to event.neuerName
+                        ),
+                        "${InventurAppDatabaseContract.GegenstandEntry.COLUMN_LAGERORT_NAME} = ?",
+                        arrayOf(event.name)
+                    )
+                }
             }
 
         }
